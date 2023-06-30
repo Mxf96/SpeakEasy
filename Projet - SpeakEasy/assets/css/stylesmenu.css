@@ -1,0 +1,78 @@
+body {
+  background-color: #10222D;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
+
+.logo {
+  height: 150px;
+  width: 150px;
+
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  border-radius: 10px;
+  border: 3px solid white;
+  background-color: #1F71AD;
+}
+
+.button-wrapper button,
+.button-wrapper a.button {
+  margin: 0 15px;
+  padding: 10px 25px;
+  background-color: #10222D;
+  font-size: 20px;
+  border: 3px solid white;
+  border-radius: 13px;
+  font-weight: bolder;
+  color: white;
+  text-decoration: none;
+}
+
+.button-wrapper button:hover,
+.button-wrapper a.button:hover {
+  background-color: #ffffff;
+  color: #10222D;
+  border: 3px solid #10222D;
+}
+
+.logout {
+  margin-left: 75%;
+  padding: 10px 25px;
+  background-color: #10222D;
+  font-size: 20px;
+  border: 3px solid white;
+  border-radius: 13px;
+  font-weight: bolder;
+  color: white;
+  text-decoration: none;
+}
+
+h2 {
+  margin-top: 5%;
+  text-align: center;
+  color: white;
+  font-weight: bolder;
+}
+
+.footer {
+  margin-top: 5%;
+  text-align: center;
+  color: white;
+  font-weight: bolder;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} 

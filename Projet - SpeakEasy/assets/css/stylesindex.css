@@ -1,0 +1,148 @@
+body {
+    background-color: #10222D;
+}
+
+/* @media only screen and (min-width: 320px) and (max-width: 425px) {
+.logo {
+    height: 200px;
+    width: 200px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    border: 4px solid #1F71AD;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    width: 200px;
+    height: 30px;
+    padding-left: 10px;
+    background-color: white;
+    font-family: 'Yatra One';
+    font-size: large;
+    font-weight: bolder;
+}
+
+::placeholder {
+    color: #10222D;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end;
+    padding-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: #1F71AD;
+}
+
+.mdpo {
+    color: #1F71AD;
+    font-weight: bolder;
+    font-size: large;
+    padding-bottom: 20px;
+    padding-top: 0px;
+}
+
+
+.return {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    padding-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: #1F71AD;
+}
+
+.footer {
+    text-align: center;
+    color: #1F71AD;
+    font-weight: bold;
+}
+
+
+
+} */
+
+/* @media only screen and (min-width: 426px) and (max-width: 1440px) { */
+    .logo {
+        height: 200px;
+        width: 200px;
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    input {
+        border: 4px solid #1F71AD;
+        border-radius: 20px;
+        margin-bottom: 15px;
+        width: 200px;
+        height: 30px;
+        padding-left: 10px;
+        background-color: white;
+        font-family: 'Yatra One';
+        font-size: large;
+        font-weight: bolder;
+    }
+    
+    ::placeholder {
+        color: #10222D;
+    }
+    
+    .register {
+        display: flex;
+        flex-direction: column;
+        align-items:flex-end;
+        padding-bottom: 20px;
+        font-size: large;
+        font-weight: bolder;
+        color: #1F71AD;
+    }
+    
+    .mdpo {
+        color: #1F71AD;
+        font-weight: bolder;
+        font-size: large;
+        padding-bottom: 20px;
+        padding-top: 0px;
+    }
+    
+    
+    .return {
+        display: flex;
+        flex-direction: column;
+        align-items:flex-start;
+        padding-bottom: 20px;
+        font-size: large;
+        font-weight: bolder;
+        color: #1F71AD;
+    }
+    
+    .footer {
+        margin-top: 5%;
+        text-align: center;
+        color: #1F71AD;
+        font-weight: bold;
+    }
+    
+
+    .error-message {
+        color: white;
+        font-weight: bold;
+    }
+    
+    /* } */
