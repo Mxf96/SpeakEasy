@@ -49,23 +49,23 @@ require '../includes/inc-top-home.php';
 <main class="groups-page">
     <a href="/home/home.php" class="back">Retour</a>
     <section class="group-list">
-        <h2>Vos Groupes</h2>
-        <ul>
+        <h2>Vos Groupes</h2> 
             <?php if (!empty($groupsList)) : ?>
+                <ul>
                 <?php foreach ($groupsList as $group) : ?>
                     <li class="groups-item">
                         <?= htmlspecialchars($group['name']); ?>
                         <!-- Add a form for removing the group next to the group name -->
                         <form action="groups.php" method="post" style="display: inline;">
                             <input type="hidden" name="groupID" value="<?= $group['groupID']; ?>">
-                            <a type="submit" name="deleteGroup" class="remove-group-btn">Supprimer</a>
+                            <button type="submit" name="deleteGroup" class="remove-group-btn">Supprimer</button>
                         </form>
                     </li>
                 <?php endforeach; ?>
+                </ul>
             <?php else : ?>
-                <p class="no-groups">C'est désert ici. Pourquoi ne pas rejoindre ou créer un groupe ?</p>
+                <p>C'est désert ici. Pourquoi ne pas rejoindre ou créer un groupe ?</p>
             <?php endif; ?>
-        </ul>
     </section>
     <section class="group-actions">
         <div>

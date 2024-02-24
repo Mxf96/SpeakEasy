@@ -1,0 +1,99 @@
+/* Layout and Colors */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #10222D;
+    color: #333;
+    line-height: 1.6;
+}
+
+h2, p {
+    color: #ccc;
+}
+
+/* Chat Section Styles */
+.chat-section {
+    margin: 10px 0 0 120px;
+    width: 80%;
+    background: #2C3E50;
+    color: #ECF0F1;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Message Input Area Styles */
+.message-form {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    width: 500%;
+}
+
+.message-input {
+    margin-left: 75px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+button.send-button {
+    margin-right: 20px;
+    width: 15%;
+    padding: 10px;
+    background-color: #10222D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s; /* Ajout de la transition pour transform */
+}
+
+button.send-button:hover {
+    background-color: #0070a7;
+    transform: translateY(-5px); /* Animation pour monter le bouton */
+}
+
+/* Messages Display Styles */
+.message-display {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center messages within the display */
+}
+
+.message {
+    width: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #3D5467;
+    color: #ccc;
+    display: inline-block;
+}
+
+.message.sent {
+    background-color: #0070a7;
+    align-self: flex-end; /* Align sent messages to the right */
+}
+
+.message.received {
+    background-color: #ccc;
+    color: #333;
+    align-self: flex-start; /* Align received messages to the left */
+}
+
+.back {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 20px;
+}
