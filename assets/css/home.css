@@ -257,17 +257,46 @@ ul span {
 }
 
 /* Styles spécifiques pour la section des groupes */
-.remove-group-btn {
-    padding: 5px 10px;
+.group-list {
+    width: 60%;
+}
+
+.group-list ul {
+    width: 50%;
+    background-color: #ffffff;
+    color: #10222D;
+    border-radius: 5px;
+    border: 3px solid #fff;
+    list-style: none;
+    padding: 0;
+    margin-left: 20px;
+}
+
+.group-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.groups-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.remove-group-btn  {
+    padding: 5px;
     background-color: #f44336;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.remove-group-btn:hover {
+.remove-btn:hover {
     background-color: #d32f2f;
 }
 
@@ -367,16 +396,6 @@ ul span {
 .group-actions .addFriends:hover, .group-actions .groupActions:hover {
     color: #0070a7;
     text-decoration: underline;
-}
-
-.group-list ul {
-    list-style: none;
-    padding: 0;
-}
-
-.group-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
 }
 
 /* Adaptation pour les petits écrans */

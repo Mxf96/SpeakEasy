@@ -53,12 +53,12 @@ require '../includes/inc-top-home.php';
         <ul>
             <?php if (!empty($groupsList)) : ?>
                 <?php foreach ($groupsList as $group) : ?>
-                    <li>
+                    <li class="groups-item">
                         <?= htmlspecialchars($group['name']); ?>
                         <!-- Add a form for removing the group next to the group name -->
                         <form action="groups.php" method="post" style="display: inline;">
                             <input type="hidden" name="groupID" value="<?= $group['groupID']; ?>">
-                            <button type="submit" name="deleteGroup" class="remove-group-btn">Supprimer</button>
+                            <a type="submit" name="deleteGroup" class="remove-group-btn">Supprimer</a>
                         </form>
                     </li>
                 <?php endforeach; ?>

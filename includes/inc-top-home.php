@@ -18,6 +18,7 @@ require 'inc-db-connect.php';
                 <h1>SpeakEasy</h1>
             </div>
             <div class="navbar-right">
+                <a href="/home/home.php">Home</a>
                 <a href="/friends/friends.php">Amis</a>
                 <a href="/groups/groups.php">Groupes</a>
                 <a href="/log/logout.php">Déconnexion</a>
