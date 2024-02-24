@@ -28,13 +28,15 @@ if ($selectedFriendID) {
 require '../includes/inc-top-msg.php';
 ?>
 <main class="main-container">
-<a href="/home/home.php" class="back">Retour</a>
+    <a href="/home/home.php" class="back">Retour</a>
     <section class="chat-section">
         <div class="message-display">
             <?php if ($selectedFriendID) : ?>
                 <?php foreach ($messages as $message) : ?>
-                    <!-- Utilisez ici les classes .message.sent ou .message.received selon qui envoie le message -->
-                    <div class="message <?= ($message['fromUserID'] == $userID) ? 'sent' : 'received' ?>"><?= sanitize_input($message['content']) ?></div>
+                    <div class="message <?= ($message['fromUserID'] == $userID) ? 'sent' : 'received' ?>">
+                        <?= sanitize_input($message['content']) ?>
+                        <span class="message-date"><?= date('d/m/Y H:i', strtotime($message['dateTime'])) ?></span>
+                    </div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
@@ -43,11 +45,10 @@ require '../includes/inc-top-msg.php';
         <div class="message-input-area">
             <form action="private-messages.php" method="post" class="message-form" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                 <input type="hidden" name="toUserID" value="<?= $selectedFriendID ?>">
-                <input name="message" required class="message-input" style="flex-grow: 1; margin-right: 10px;"></input>
+                <textarea name="message" required class="message-input"></textarea>
                 <button type="submit" class="send-button">Envoyer</button>
             </form>
         </div>
     <?php endif; ?>
 </main>
 <?php require '../includes/inc-bottom.php'; ?>
-

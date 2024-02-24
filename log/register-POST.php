@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([$name, $email, $hashed_password, $signUpDate]);
 
         $_SESSION['success_message'] = "Inscription réussie. Vous pouvez maintenant vous connecter.";
-        header('Location: ../login.php');
+        header('Location: ../log/login.php');
         exit;
     } catch (PDOException $e) {
         $_SESSION['error_message'] = "Erreur lors de l'inscription, veuillez réessayer.";

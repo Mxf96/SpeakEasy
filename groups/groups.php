@@ -54,7 +54,7 @@ require '../includes/inc-top-home.php';
                 <ul>
                 <?php foreach ($groupsList as $group) : ?>
                     <li class="groups-item">
-                        <?= htmlspecialchars($group['name']); ?>
+                        <?= sanitize_input($group['name']); ?>
                         <!-- Add a form for removing the group next to the group name -->
                         <form action="groups.php" method="post" style="display: inline;">
                             <input type="hidden" name="groupID" value="<?= $group['groupID']; ?>">

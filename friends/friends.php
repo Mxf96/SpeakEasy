@@ -28,7 +28,7 @@ require '../includes/inc-top-home.php';
             <ul>
                 <?php foreach ($friendsList as $friend) : ?>
                     <li class="friend-item">
-                        <span><?= htmlspecialchars($friend['name']); ?></span>
+                        <span><?= sanitize_input($friend['name']); ?></span>
                         <a href="/messages/private-messages.php?friendID=<?= $friend['userID']; ?>" class="message-btn">Discuter</a>
                         <form action="removeFriend.php" method="post" class="remove-friend-form">
                             <input type="hidden" name="friendUserID" value="<?= $friend['userID']; ?>">
