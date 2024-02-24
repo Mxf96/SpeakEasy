@@ -1,6 +1,6 @@
 <?php
 require '../includes/inc-db-connect.php';
-require '../managers/security-manager.php';
+require_once '../managers/security-manager.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupération et nettoyage des données du formulaire

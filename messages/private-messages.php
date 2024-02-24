@@ -1,6 +1,6 @@
 <?php
 require '../includes/inc-db-connect.php';
-require '../managers/security-manager.php';
+require_once '../managers/security-manager.php';
 require '../managers/message-manager.php';
 
 if (!isset($_SESSION['user_id'])) {

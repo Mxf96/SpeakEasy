@@ -1,7 +1,7 @@
 <?php
-require '../managers/home-manager.php';
+require_once '../managers/profile-manager.php';
 require '../managers/group-manager.php';
-require '../managers/security-manager.php';
+require_once '../managers/security-manager.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');

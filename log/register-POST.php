@@ -1,6 +1,6 @@
 <?php
 require '../includes/inc-db-connect.php';
-require '../managers/security-manager.php';
+require_once '../managers/security-manager.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['confirm_password'])) {
