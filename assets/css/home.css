@@ -1,0 +1,387 @@
+.addFriends {
+    float: right;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 50px;
+}
+
+.addFriends:hover {
+    color: #0070a7;
+    text-decoration: underline;
+    text-decoration: none;
+}
+
+.back {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.back:hover {
+    color: #0070a7;
+    text-decoration: underline;
+    text-decoration: none;
+}
+
+.form-container {
+    background-color: #2C3E50;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 450px; 
+    text-align: center;
+    color: #E4E6EB;
+    margin-top: 20px;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px; 
+}
+
+.alert.success {
+    background-color: #27ae60;
+}
+
+.alert.error {
+    background-color: #e74c3c; 
+}
+
+div {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    color: #BCC6CC;
+    text-align: left;
+    font-weight: 600;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+    width: calc(80% - 24px);
+    padding: 15px 12px;
+    border: 2px solid #34495e; 
+    background-color: #34495e;
+    border-radius: 5px;
+    color: #ECF0F1;
+    margin-top: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, background-color 0.3s;
+    font-weight: bold;
+}
+
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
+    border-color: #ffffff;
+    background-color: #2C3E50; 
+    outline: none;
+}
+
+button {
+    width: 20%;
+    background-color: #10222D;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bolder;
+}
+
+button:hover {
+    background-color: #0070a7;
+    transform: translateY(-5px);
+    border-radius: 10px;
+}
+
+.friends-page {
+    display: flex;
+    justify-content: space-between;
+}
+
+.friends-list {
+    width: 60%;
+}
+
+.friends-list ul {
+    width: 50%;
+    background-color: #ffffff;
+    color: #10222D;
+    border-radius: 5px;
+    border: 3px solid #fff;
+    list-style: none;
+    padding: 0;
+    
+}
+
+ul span {
+    font-weight: bold;
+}
+
+.friend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.remove-btn {
+    width: 100%;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+}
+
+.friends-actions {
+    width: 35%;
+    margin-top: 10px;
+}
+
+.addFriends {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#addFriendForm, #invitationsContainer {
+    margin-top: 50px;
+}
+
+.invitations-container {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+}
+
+.invitation-list {
+    margin-top: 15px;
+}
+
+.invitation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.friend-name {
+    font-weight: bold;
+}
+
+.invitation-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.invitation-form {
+    margin: 0;
+}
+
+.accept-btn, .decline-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.accept-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.decline-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.accept-btn, .decline-btn {
+    padding: 10px 15px; 
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    display: inline-block; 
+    text-align: center; 
+    width: auto;
+    min-width: 100px;
+}
+
+/* Additional styles for hover effect */
+.accept-btn:hover, .decline-btn:hover {
+    opacity: 0.8;
+    transform: scale(1.05); 
+}
+
+/* Responsive adjustments if necessary */
+@media (max-width: 768px) {
+    .invitation-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .invitation-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .accept-btn, .decline-btn {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+/* Styles spécifiques pour la section des groupes */
+.remove-group-btn {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.remove-group-btn:hover {
+    background-color: #d32f2f;
+}
+
+.group-input {
+    width: calc(80% - 24px);
+    padding: 12px 10px;
+    border: 1px solid #34495e;
+    background-color: #2C3E50;
+    border-radius: 4px;
+    color: #ECF0F1;
+    margin-top: 10px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.group-input:focus {
+    border-color: #ffffff;
+    background-color: #34495e;
+    outline: none;
+}
+
+.group-button {
+
+    width: auto; /* Ajuster en fonction de votre mise en page */
+    background-color: #10222D;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+    margin-bottom: -50px;
+}
+
+.group-button:hover {
+    background-color: #0070a7;
+    transform: translateY(-2px);
+}
+
+/* Déplacer les actions de groupe à droite */
+.group-actions {
+    float: right;
+    width: auto; /* Ajuster en fonction de votre mise en page */
+    margin-top: -120px; /* Ajouter une marge supérieure pour rapprocher de la navbar */
+    text-align: right; /* Aligner le texte à droite dans la section */
+    font-weight: bold;
+}
+
+.group-actions a {
+    margin-right: 30px;
+}
+
+.group-actions a:hover {
+    color: #0070a7;
+    text-decoration: underline;
+    text-decoration: none;
+}
+
+.group-actions .form-container {
+    background-color: #2C3E50;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 85%;
+    max-width: 450px; 
+    color: #E4E6EB;
+    margin-top: 20px;
+}
+
+.group-actions .form-container input {
+    width: 80%;
+}
+
+.group-actions .form-container2 {
+    background-color: #2C3E50;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 450px; 
+    text-align: center;
+    color: #E4E6EB;
+    margin-top: 20px;
+    margin-right: 130px;
+}
+
+.group-actions .addFriends, .group-actions .groupActions {
+    display: inline-block;
+    margin-left: 15px; /* Ajuster l'espacement à gauche */
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: bold;
+}
+
+.group-actions .addFriends:hover, .group-actions .groupActions:hover {
+    color: #0070a7;
+    text-decoration: underline;
+}
+
+.group-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.group-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Adaptation pour les petits écrans */
+@media (max-width: 768px) {
+    .group-input, .group-button {
+        width: calc(100% - 20px);
+    }
+}

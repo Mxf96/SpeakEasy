@@ -1,0 +1,126 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #10222D;
+    color: #E4E6EB;
+}
+
+main {
+    flex: 1;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 5%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 50px;
+}
+
+.navbar a:hover {
+    color: #0070a7;
+    text-decoration: underline;
+    text-decoration: none;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo img {
+    width: 75px;
+    margin-right: 10px;
+}
+
+.navbar-right {
+    display: flex;
+}
+
+h2 {
+    margin-left: 10px;
+}
+
+.welcome-text {
+    background-color: #1C2D41;
+    margin: 50px auto;
+    max-width: 800px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-size: 16px;
+    border-left: 5px solid #007bff;
+}
+
+.welcome-text h2, .welcome-text h3 {
+    color: #FFC107;
+}
+
+.welcome-text p {
+    text-align: left;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.welcome-text h2 {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+.welcome-text h3 {
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+footer {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-weight: bold;
+}
+
+.footer-content p {
+    margin: 5px 0;
+}
+
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navbar-right {
+        margin-top: 10px;
+    }
+
+    .welcome-text {
+        margin: 20px;
+        padding: 20px;
+    }
+}
+
