@@ -322,6 +322,10 @@ ul span {
     font-weight: bold;
 }
 
+.a {
+    text-decoration: none;
+}
+
 .remove-group-btn  {
     width: 90%;
     background-color: #e74c3c;

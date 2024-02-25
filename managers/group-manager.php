@@ -77,4 +77,26 @@ function deleteGroup($dbh, $groupID, $userID) {
         return "Error removing group: " . $e->getMessage();
     }
 }
+
+function getGroupInfo($dbh, $groupID) {
+    try {
+        // Préparer la requête SQL pour récupérer les informations du groupe par son ID
+        $sql = "SELECT groupID, name, description, creationDate FROM `groups` WHERE groupID = :groupID";
+        $stmt = $dbh->prepare($sql);
+        
+        // Exécuter la requête en passant l'ID du groupe comme paramètre
+        $stmt->execute([':groupID' => $groupID]);
+        
+        // Récupérer le résultat de la requête
+        $groupInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Retourner les informations du groupe si disponibles, sinon retourner null
+        return $groupInfo ? $groupInfo : null;
+    } catch (PDOException $e) {
+        // Gérer l'erreur éventuelle (log, message d'erreur, etc.)
+        error_log("Erreur lors de la récupération des informations du groupe : " . $e->getMessage());
+        return null;
+    }
+}
+
 ?>
