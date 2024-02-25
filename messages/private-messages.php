@@ -45,7 +45,7 @@ require '../includes/inc-top-msg.php';
         <div class="message-input-area">
             <form action="private-messages.php" method="post" class="message-form" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                 <input type="hidden" name="toUserID" value="<?= $selectedFriendID ?>">
-                <textarea name="message" required class="message-input"></textarea>
+                <input name="message" required class="message-input"></input>
                 <button type="submit" class="send-button">Envoyer</button>
             </form>
         </div>

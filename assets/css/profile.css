@@ -1,0 +1,60 @@
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.profile-picture:hover {
+    filter: brightness(150%);
+}
+
+.profile-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bio-container {
+    margin-top: 20px;
+    width: 50%;
+    background-color: #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.bio-container:hover {
+    transform: scale(1.05);
+}
+
+.bio-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bio-content i, .bio-content p {
+    color: #333;
+}
+
+.settings-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.settings-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 182px;
+} 

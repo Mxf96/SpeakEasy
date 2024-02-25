@@ -2,6 +2,7 @@
 require_once '../managers/profile-manager.php';
 require '../managers/friend-manager.php';
 require_once '../managers/security-manager.php';
+require_once '../managers/profile-manager.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../log/login.php');
@@ -28,6 +29,7 @@ require '../includes/inc-top-home.php';
             <ul>
                 <?php foreach ($friendsList as $friend) : ?>
                     <li class="friend-item">
+                        <img src="<?= sanitize_input($friend['profile_photo']); ?>" alt="Profile Picture" class="profile_photo">
                         <span><?= sanitize_input($friend['name']); ?></span>
                         <a href="/messages/private-messages.php?friendID=<?= $friend['userID']; ?>" class="message-btn">Discuter</a>
                         <form action="removeFriend.php" method="post" class="remove-friend-form">
