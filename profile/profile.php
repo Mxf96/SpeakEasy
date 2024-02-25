@@ -36,8 +36,17 @@ require '../includes/inc-top-profile.php';
     <form action="profile.php" method="post" enctype="multipart/form-data">
         <input type="file" name="profile_pic" id="profile_pic" hidden onchange="this.form.submit();">
     </form>
+    <!-- Hidden form for updating profile, initially hidden -->
+    <div id="settingsForm" style="display:none;">
+        <form action="updateProfile.php" method="post" enctype="multipart/form-data" class="form-container">
+            <input type="text" class="input" name="name" placeholder="Entrez un nouveau nom..." value="<?= sanitize_input($user['name'] ?? ''); ?>">
+            <input type="text" name="bio" class="input" placeholder="Mettez à jour votre bio ici..."><?= sanitize_input($user['description'] ?? ''); ?></input>
+            <button type="submit" class="button">Mettre à jour le profil</button>
+        </form>
+    </div>
     <!-- Remplacer $user['description'] par $userDescription -->
     <div class="bio-container">
+        <h3>Ma bio</h3>
         <div class="bio-content">
             <p><?= sanitize_input($userDescription ?? 'No bio set.'); ?></p>
             <i class="fas fa-cog settings-icon" id="settingsIcon"></i>
@@ -45,14 +54,7 @@ require '../includes/inc-top-profile.php';
     </div>
 </div>
 
-<!-- Hidden form for updating profile, initially hidden -->
-<div id="settingsForm" style="display:none;">
-    <form action="updateProfile.php" method="post" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Enter new name..." value="<?= sanitize_input($user['name'] ?? ''); ?>">
-        <textarea name="bio" placeholder="Update your bio here..."><?= sanitize_input($user['description'] ?? ''); ?></textarea>
-        <button type="submit">Update Profile</button>
-    </form>
-</div>
+
 
 
 <script src="/scripts/setting.js"></script>
