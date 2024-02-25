@@ -4,7 +4,7 @@ require '../includes/inc-db-connect.php';
 // Fonction pour obtenir la liste des amis
 function getFriendsList($dbh, $userID) {
     $friends = [];
-    $stmt = $dbh->prepare("SELECT u.userID, u.name 
+    $stmt = $dbh->prepare("SELECT u.userID, u.name, u.profile_photo
         FROM Users u
         JOIN UserFriends uf ON (uf.friendUserID = u.userID OR uf.userID = u.userID)
         WHERE (uf.userID = :userID OR uf.friendUserID = :userID)
