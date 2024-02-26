@@ -170,11 +170,13 @@ function getChannels($dbh, $groupID) {
 }
 
 
-function createChannel($dbh, $groupID, $channelName) {
+function createChannel($dbh, $groupID, $channelName, $channelDescription) {
     try {
-        $sql = "INSERT INTO channels (groupID, name) VALUES (:groupID, :name)";
+        // Ajoutez `description` dans la liste des colonnes et des valeurs de la requête SQL
+        $sql = "INSERT INTO channels (groupID, name, description) VALUES (:groupID, :name, :description)";
         $stmt = $dbh->prepare($sql);
-        $stmt->execute([':groupID' => $groupID, ':name' => $channelName]);
+        // Passez `channelDescription` comme paramètre lors de l'exécution de la requête
+        $stmt->execute([':groupID' => $groupID, ':name' => $channelName, ':description' => $channelDescription]);
         return $dbh->lastInsertId(); // Retourne l'ID du salon créé
     } catch (PDOException $e) {
         return "Error creating channel: " . $e->getMessage();
@@ -192,13 +194,23 @@ function getGroupChannels($dbh, $groupID) {
     }
 }
 
+function updateChannel($dbh, $channelID, $name, $description) {
+    try {
+        $sql = "UPDATE channels SET name = :name, description = :description WHERE channelID = :channelID";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([':name' => $name, ':description' => $description, ':channelID' => $channelID]);
+    } catch (PDOException $e) {
+        error_log("Error updating channel: " . $e->getMessage());
+    }
+}
+
 function deleteChannel($dbh, $channelID) {
     try {
         $sql = "DELETE FROM channels WHERE channelID = :channelID";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([':channelID' => $channelID]);
     } catch (PDOException $e) {
-        return "Error deleting channel: " . $e->getMessage();
+        error_log("Error deleting channel: " . $e->getMessage());
     }
 }
 

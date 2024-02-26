@@ -32,6 +32,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addChannel'])) {
     exit;
 }
 
+// Traitement de la mise à jour d'un canal
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateChannel'], $_POST['channelIDToUpdate'])) {
+    $channelIDToUpdate = $_POST['channelIDToUpdate'];
+    $newChannelName = $_POST['newChannelName'];
+    $newChannelDescription = $_POST['newChannelDescription'] ?? '';
+    updateChannel($dbh, $channelIDToUpdate, $newChannelName, $newChannelDescription);
+    header("Location: groupPage.php?groupID=$groupID");
+    exit;
+}
+
+// Traitement de la suppression d'un canal
+if (isset($_GET['deleteChannelID'])) {
+    $deleteChannelID = $_GET['deleteChannelID'];
+    deleteChannel($dbh, $deleteChannelID);
+    header("Location: groupPage.php?groupID=$groupID");
+    exit;
+}
+
 // Récupérer les informations nécessaires de la base de données
 $groupInfo = getGroupInfo($dbh, $groupID);
 $groupMembers = getGroupMembers($dbh, $groupID);
@@ -44,9 +62,9 @@ require '../includes/inc-top-group.php';
 
 <main class="group-page-container">
     <div class="group-conversations">
-        <div class="<?= htmlspecialchars($channelsContainerClass) ?>">
+        <div class="<?= sanitize_input($channelsContainerClass) ?>">
             <div class="channel-header">
-                <span><?= htmlspecialchars($groupName) ?></span>
+                <span><?= sanitize_input($groupName) ?></span>
                 <a href="#" id="addChannelButton" style="text-decoration: none;" class="add-channel-btn">+</a>
                 <form id="addChannelForm" action="groupPage.php?groupID=<?= $groupID ?>" method="post" style="display: none;" class="form-container">
                     <input type="text" class="group-input" name="channelName" placeholder="Nom du salon" required />
@@ -55,14 +73,21 @@ require '../includes/inc-top-group.php';
                 </form>
             </div>
             <ul class="channels-list">
-                <li>
-                    <a href="groupPage.php?groupID=<?= htmlspecialchars($groupID) ?>" style="text-decoration: none; color: inherit;">Accueil</a>
-                </li>
                 <?php foreach ($channels as $channel) : ?>
                     <li>
-                        <a href="groupPage.php?groupID=<?= htmlspecialchars($groupID) ?>&channelID=<?= htmlspecialchars($channel['channelID']) ?>" style="text-decoration: none; color: inherit;">
-                            <?= htmlspecialchars($channel['name']) ?>
+                        <a href="groupPage.php?groupID=<?= sanitize_input($groupID) ?>&channelID=<?= sanitize_input($channel['channelID']) ?>" style="text-decoration: none; color: inherit;">
+                            <?= sanitize_input($channel['name']) ?>
                         </a>
+                        <!-- Bouton pour supprimer le canal -->
+                        <a href="groupPage.php?groupID=<?= $groupID ?>&deleteChannelID=<?= $channel['channelID'] ?>" onclick="return confirm('Confirmez-vous la suppression de ce canal ?');" class="del-channel-btn ">X</a>
+                        <!-- Bouton pour modifier le canal -->
+                        <a href="#" onclick="showUpdateForm(<?= $channel['channelID'] ?>, '<?= addslashes(sanitize_input($channel['name'])) ?>', '<?= addslashes(sanitize_input($channel['description'])) ?>')" class="up-channel-btn">+</a>
+                        <form id="updateChannelForm" style="display: none;">
+                            <input type="hidden" id="updateChannelID" name="channelIDToUpdate" class="group-input">
+                            <input type="text" id="newChannelName" name="newChannelName" placeholder="Nouveau nom du salon" required class="group-input">
+                            <input type="text" id="newChannelDescription" name="newChannelDescription" placeholder="Nouvelle description du salon" class="group-input">
+                            <button type="submit" class="group-button">Mettre à jour</button>
+                        </form>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -72,10 +97,28 @@ require '../includes/inc-top-group.php';
         <div class="message-area">
             <?php if (!$channelID) : ?>
                 <!-- Afficher le nom et la description du groupe uniquement si aucun channelID n'est spécifié -->
-                <div>
-                    <h2><?= htmlspecialchars($groupName) ?></h2>
-                    <p><?= htmlspecialchars($groupInfo['description']) ?></p>
+                <div class="group-bio">
+                    <h2><?= sanitize_input($groupName) ?></h2>
+                    <p><?= sanitize_input($groupInfo['description']) ?></p>
                 </div>
+            <?php endif; ?>
+            <?php if ($channelID) : ?>
+                <?php
+                // Récupérer les informations du canal actuel
+                $currentChannelInfo = null;
+                foreach ($channels as $channel) {
+                    if ($channel['channelID'] == $channelID) {
+                        $currentChannelInfo = $channel;
+                        break;
+                    }
+                }
+                ?>
+                <?php if ($currentChannelInfo) : ?>
+                    <div class="channel-navbar">
+                        <h2><?= sanitize_input($currentChannelInfo['name']) ?></h2>
+                        <p><?= sanitize_input($currentChannelInfo['description']) ?></p>
+                    </div>
+                <?php endif; ?>
             <?php endif; ?>
 
             <div class="message-display">
@@ -88,8 +131,8 @@ require '../includes/inc-top-group.php';
                 <?php endforeach; ?>
             </div>
             <?php if ($channelID) : ?>
-                <form action="groupPage.php?groupID=<?= htmlspecialchars($groupID) ?>&channelID=<?= htmlspecialchars($channelID) ?>" method="post" class="form">
-                    <input type="hidden" name="groupID" value="<?= htmlspecialchars($groupID) ?>">
+                <form action="groupPage.php?groupID=<?= sanitize_input($groupID) ?>&channelID=<?= sanitize_input($channelID) ?>" method="post" class="form">
+                    <input type="hidden" name="groupID" value="<?= sanitize_input($groupID) ?>">
                     <input name="message" required class="message-input" />
                     <button type="submit" class="send-button">Envoyer</button>
                 </form>
@@ -101,7 +144,8 @@ require '../includes/inc-top-group.php';
         <h2>Membres du Groupe</h2>
         <ul>
             <?php foreach ($groupMembers as $member) : ?>
-                <li><?= sanitize_input($member['name']) ?></li>
+                <!-- Ensure that the link points to the profile.php page with the correct userID -->
+                <li><a href="/profile/profile.php?userID=<?= htmlspecialchars($member['userID']) ?>"><?= htmlspecialchars($member['name']) ?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>

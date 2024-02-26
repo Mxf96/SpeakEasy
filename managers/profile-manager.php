@@ -3,9 +3,9 @@ require '../includes/inc-db-connect.php';
 
 function getUserName($dbh, $userID) {
     try {
-        $stmt = $dbh->prepare("SELECT name FROM users WHERE userID = ?");
-        $stmt->execute([$userID]);
-        $user = $stmt->fetch();
+        $stmt = $dbh->prepare("SELECT `name` FROM `users` WHERE `userID` = :userID");
+        $stmt->execute([':userID' => $userID]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ? $user['name'] : null;
     } catch (PDOException $e) {
         error_log("Erreur lors de la récupération du nom de l'utilisateur : " . $e->getMessage());
@@ -39,19 +39,23 @@ function updateUserProfileImage($dbh, $userID, $filePath) {
 function updateUserDetails($dbh, $userID, $name, $bio) {
     // Récupère les informations actuelles de l'utilisateur pour vérifier si des valeurs sont fournies
     $currentUserInfo = getUserInfo($dbh, $userID);
-    
     // Si aucun nouveau nom n'est fourni, utiliser l'ancien
     if (empty($name)) {
         $name = $currentUserInfo['name'];
     }
-    
     // Si aucune nouvelle bio n'est fournie, utiliser l'ancienne
     if (empty($bio)) {
         $bio = $currentUserInfo['description'];
     }
-
     // Mise à jour du nom et de la bio
     $stmt = $dbh->prepare("UPDATE users SET name = :name, description = :bio WHERE userID = :userID");
     $stmt->execute([':name' => $name, ':bio' => $bio, ':userID' => $userID]);
 }
+
+function isAlreadyFriend($dbh, $currentUser, $profileUser) {
+    $stmt = $dbh->prepare("SELECT COUNT(*) FROM userfriends WHERE (userID = :currentUser AND friendUserID = :profileUser) OR (userID = :profileUser AND friendUserID = :currentUser) AND status = 'accepted'");
+    $stmt->execute([':currentUser' => $currentUser, ':profileUser' => $profileUser]);
+    return $stmt->fetchColumn() > 0;
+}
+
 ?>

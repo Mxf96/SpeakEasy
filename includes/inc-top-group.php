@@ -37,7 +37,7 @@ if ($groupID) {
         <link rel="stylesheet" href="/assets/css/groupPage.css">
         <link rel="icon" href="/assets/pictures/SpeakEasy.png" type="image/x-icon">
         <!-- Modifiez le titre ici pour inclure le nom du groupe -->
-        <title><?= htmlspecialchars($groupName); ?> - SpeakEasy</title>
+        <title><?= sanitize_input($groupName); ?> - SpeakEasy</title>
     </head>
     <body>
     <header class="navbar">

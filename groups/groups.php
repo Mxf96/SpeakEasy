@@ -58,7 +58,7 @@ require '../includes/inc-top-home.php';
                         <a class="a" href="/groups/groupPage.php?groupID=<?= $group['groupID']; ?>"><?= sanitize_input($group['name']); ?></a>
                         <form action="groups.php" method="post" style="display: inline;">
                             <input type="hidden" name="groupID" value="<?= $group['groupID']; ?>">
-                            <button type="submit" name="deleteGroup" class="remove-group-btn">Supprimer</button>
+                            <button type="submit" name="deleteGroup" class="remove-group-btn" onclick="return confirm('Confirmez-vous la suppression de ce groupe ?');">Supprimer</button>
                         </form>
                     </li>
                 <?php endforeach; ?>

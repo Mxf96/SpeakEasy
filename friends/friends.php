@@ -34,7 +34,7 @@ require '../includes/inc-top-home.php';
                         <a href="/messages/private-messages.php?friendID=<?= $friend['userID']; ?>" class="message-btn">Discuter</a>
                         <form action="removeFriend.php" method="post" class="remove-friend-form">
                             <input type="hidden" name="friendUserID" value="<?= $friend['userID']; ?>">
-                            <button type="submit" class="remove-btn">Supprimer</button>
+                            <button type="submit" class="remove-btn" onclick="return confirm('Confirmez-vous la suppression de cet(te) ami(e) ?');">Supprimer</button>
                         </form>
                     </li>
                 <?php endforeach; ?>

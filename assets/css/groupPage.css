@@ -1,6 +1,6 @@
 /* Styles généraux */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -110,6 +110,28 @@ span {
     font-size: larger;
 }
 
+.up-channel-btn {
+    cursor: pointer;
+    color: rgb(0, 160, 0);
+    border: none;
+    padding: 5px 10px;
+    float: right;
+    font-size: larger;
+}
+
+a {
+    text-decoration: none;
+}
+
+.del-channel-btn {
+    cursor: pointer;
+    color: rgb(255, 0, 0);
+    border: none;
+    padding: 5px 10px;
+    float: right;
+    font-size: larger;
+}
+
 .channels-list li {
     padding: 10px;
     border-bottom: 1px solid #eee;
@@ -140,11 +162,38 @@ span {
     align-items: center; /* Center messages within the display */
 }
 
+.channel-navbar {
+    padding: 10px;
+    background-color: #f0f0f0; /* Changer selon votre palette de couleurs */
+    border-bottom: 1px solid #ddd; /* Ligne de séparation */
+}
+
+.channel-navbar h2 {
+    margin: 0;
+    padding-bottom: 5px;
+    color: #333; /* Changer selon votre palette de couleurs */
+}
+
+.channel-navbar p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666; /* Changer selon votre palette de couleurs */
+}
+
 .form {
     display: flex;
     justify-content: space-between;
     padding: 10px;
     background: #34495E;
+}
+
+.group-bio {
+    background-color: #10222D;
+    margin: 50px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-weight: bold;
 }
 
 .message {
@@ -225,4 +274,8 @@ span {
 
 .group-members li {
     font-weight: bold;
+}
+
+.group-members li:hover {
+    color: #0070a7;
 }

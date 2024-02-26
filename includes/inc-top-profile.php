@@ -9,8 +9,9 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Récupère l'ID de l'utilisateur depuis la session
-$userID = $_SESSION['user_id'];
+// Vérifie si un userID est spécifié dans l'URL, sinon utilise l'ID de l'utilisateur connecté
+$userID = isset($_GET['userID']) && intval($_GET['userID']) > 0 ? intval($_GET['userID']) : $_SESSION['user_id'];
+
 // Utilise l'ID pour récupérer le nom de l'utilisateur
 $userName = getUserName($dbh, $userID);
 
@@ -24,7 +25,7 @@ $userName = getUserName($dbh, $userID);
         <link rel="stylesheet" href="/assets/css/profile.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="icon" href="/assets/pictures/SpeakEasy.png" type="image/x-icon">
-        <title>Profil de <?= sanitize_input($userName); ?></title>
+        <title>Profil de <?= htmlspecialchars($userName); ?></title>
     </head>
     <body>
         <header class="navbar">
