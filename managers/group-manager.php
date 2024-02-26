@@ -1,5 +1,5 @@
 <?php
-require '../includes/inc-db-connect.php'; // Ensure this path is correct
+require '../includes/inc-db-connect.php';
 
 function getUserGroups($dbh, $userID) {
     $sql = "SELECT g.groupID, g.name, g.description 
@@ -96,6 +96,109 @@ function getGroupInfo($dbh, $groupID) {
         // Gérer l'erreur éventuelle (log, message d'erreur, etc.)
         error_log("Erreur lors de la récupération des informations du groupe : " . $e->getMessage());
         return null;
+    }
+}
+
+function getGroupMembers($dbh, $groupID) {
+    $sql = "SELECT u.userID, u.name 
+            FROM users u
+            JOIN groupmemberships gm ON u.userID = gm.userID
+            WHERE gm.groupID = :groupID AND gm.status = 'accepted'";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([':groupID' => $groupID]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function insertGroupMessage($dbh, $fromUserID, $groupID, $channelID, $message) {
+    // Ajoutez `channelID` dans la liste des colonnes et des valeurs de la requête SQL
+    $sql = "INSERT INTO messages (fromUserID, groupID, channelID, content, dateTime) VALUES (:fromUserID, :groupID, :channelID, :content, NOW())";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([
+        ':fromUserID' => $fromUserID,
+        ':groupID' => $groupID,
+        ':channelID' => $channelID, // Assurez-vous de passer `channelID` comme paramètre
+        ':content' => $message
+    ]);
+}
+
+function getGroupMessagesByChannel($dbh, $groupID, $channelID) {
+    try {
+        // Modifier la requête pour filtrer également par channelID
+        $sql = "SELECT m.*, u.name AS userName 
+                FROM messages m
+                JOIN users u ON m.fromUserID = u.userID 
+                WHERE m.groupID = :groupID AND m.channelID = :channelID
+                ORDER BY m.dateTime ASC";
+        
+        // Préparer la requête avec PDO
+        $stmt = $dbh->prepare($sql);
+        
+        // Exécuter la requête en passant l'ID du groupe et l'ID du canal comme paramètres
+        $stmt->execute([':groupID' => $groupID, ':channelID' => $channelID]);
+        
+        // Récupérer tous les messages du groupe pour le canal spécifié
+        $groupMessages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Retourner les messages récupérés
+        return $groupMessages;
+    } catch (PDOException $e) {
+        // En cas d'erreur, afficher le message d'erreur
+        error_log("Erreur lors de la récupération des messages du groupe pour le canal spécifié : " . $e->getMessage());
+        return [];
+    }
+}
+
+function getChannels($dbh, $groupID) {
+    try {
+        // SQL query to select channels by groupID
+        $sql = "SELECT channelID, name, description, creationDate FROM channels WHERE groupID = :groupID ORDER BY creationDate ASC";
+        $stmt = $dbh->prepare($sql);
+        
+        // Execute the query with the provided groupID
+        $stmt->execute([':groupID' => $groupID]);
+        
+        // Fetch all matching records
+        $channels = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Return the channels
+        return $channels;
+    } catch (PDOException $e) {
+        // Handle any errors
+        error_log("Error fetching channels: " . $e->getMessage());
+        return [];
+    }
+}
+
+
+function createChannel($dbh, $groupID, $channelName) {
+    try {
+        $sql = "INSERT INTO channels (groupID, name) VALUES (:groupID, :name)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([':groupID' => $groupID, ':name' => $channelName]);
+        return $dbh->lastInsertId(); // Retourne l'ID du salon créé
+    } catch (PDOException $e) {
+        return "Error creating channel: " . $e->getMessage();
+    }
+}
+
+function getGroupChannels($dbh, $groupID) {
+    try {
+        $sql = "SELECT * FROM channels WHERE groupID = :groupID";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([':groupID' => $groupID]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        return "Error fetching channels: " . $e->getMessage();
+    }
+}
+
+function deleteChannel($dbh, $channelID) {
+    try {
+        $sql = "DELETE FROM channels WHERE channelID = :channelID";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([':channelID' => $channelID]);
+    } catch (PDOException $e) {
+        return "Error deleting channel: " . $e->getMessage();
     }
 }
 

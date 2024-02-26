@@ -1,5 +1,5 @@
 <?php
-require '../includes/inc-db-connect.php'; // Assurez-vous que ce chemin est correct.
+require '../includes/inc-db-connect.php'; 
 
 function insertMessage($dbh, $fromUserID, $toUserID, $message) {
     $sql = "INSERT INTO messages (fromUserID, toUserID, content, dateTime) VALUES (:fromUserID, :toUserID, :content, NOW())";

@@ -2,9 +2,12 @@ main {
     margin-top: 20px;
 }
 
+h2, a {
+    color: #FFC107;
+}
 .addFriends {
     float: right;
-    color: #ffffff;
+    color: #FFC107;
     text-decoration: none;
     transition: color 0.3s;
     font-weight: bold;
@@ -117,7 +120,10 @@ button:hover {
 }
 
 .friends-list {
+    flex: 3;
     width: 60%;
+    margin-left: 75px;
+    margin-top: -22px;
 }
 
 .friends-list ul {
@@ -324,6 +330,12 @@ ul span {
 
 .a {
     text-decoration: none;
+    color: #10222D;
+}
+
+.a:hover {
+    text-decoration: none;
+    color: #0070a7;
 }
 
 .remove-group-btn  {

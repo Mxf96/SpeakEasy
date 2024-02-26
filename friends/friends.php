@@ -85,5 +85,5 @@ require '../includes/inc-top-home.php';
         <?php endif; ?>
     </section>
 </main>
-<script src="/scripts/addFriend.js"></script>
+<script src="/scripts/addFriends.js"></script>
 <?php require '../includes/inc-bottom.php'; ?>
