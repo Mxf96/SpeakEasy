@@ -67,7 +67,7 @@ require '../includes/inc-top-home.php';
                                     <input type="hidden" name="action" value="accept">
                                     <button type="submit" class="accept-btn">Accepter</button>
                                 </form>
-                                <form action="declineFriendRequest.php" method="post" class="invitation-form">
+                                <form action="/friends/removeFriend.php" method="post" class="invitation-form">
                                     <input type="hidden" name="friendUserID" value="<?= $request['userID']; ?>">
                                     <input type="hidden" name="action" value="decline">
                                     <button type="submit" class="decline-btn">Décliner</button>

@@ -1,7 +1,4 @@
 <?php
-// Start the session to access session variables
-session_start();
-
 // Include the database connection and group manager for database operations
 require '../includes/inc-db-connect.php';
 require '../managers/group-manager.php';

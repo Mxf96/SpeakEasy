@@ -61,11 +61,9 @@ main {
 
 h2 {
     margin-left: 10px;
+    color: #FFC107;
 }
 
-h2, h3 {
-    color: #FFC107;;
-}
 
 .welcome-text {
     background-color: #1C2D41;

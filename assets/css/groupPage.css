@@ -110,6 +110,14 @@ span {
     font-size: larger;
 }
 
+.add-channel-btn:hover {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #cccccc8f;
+    color: #0070a7;
+    transition: all 1s ease-in-out;
+}
+
 .up-channel-btn {
     cursor: pointer;
     color: rgb(0, 160, 0);
@@ -138,10 +146,11 @@ a {
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
+    list-style-type: none;
 }
 
 .channels-list li:hover {
-        color:  #0070a7;
+    color:  #0070a7;
 }
 
 /* Styles pour la zone de saisie de message et l'affichage des messages */
@@ -166,6 +175,7 @@ a {
     padding: 10px;
     background-color: #f0f0f0; /* Changer selon votre palette de couleurs */
     border-bottom: 1px solid #ddd; /* Ligne de séparation */
+    border-radius: 0 0 10px 10px;
 }
 
 .channel-navbar h2 {
@@ -274,6 +284,8 @@ a {
 
 .group-members li {
     font-weight: bold;
+    margin-bottom: 5px;
+    list-style-type: none;
 }
 
 .group-members li:hover {

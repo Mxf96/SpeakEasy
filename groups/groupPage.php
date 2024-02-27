@@ -145,7 +145,7 @@ require '../includes/inc-top-group.php';
         <ul>
             <?php foreach ($groupMembers as $member) : ?>
                 <!-- Ensure that the link points to the profile.php page with the correct userID -->
-                <li><a href="/profile/profile.php?userID=<?= htmlspecialchars($member['userID']) ?>"><?= htmlspecialchars($member['name']) ?></a></li>
+                <li><a style="text-decoration: none; color: inherit;" href="/profile/profile.php?userID=<?= htmlspecialchars($member['userID']) ?>"><?= htmlspecialchars($member['name']) ?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>

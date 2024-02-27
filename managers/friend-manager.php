@@ -86,3 +86,22 @@ function removeFriend($dbh, $userID, $friendUserID) {
         return "Erreur lors de la suppression de l'ami : " . $e->getMessage();
     }
 }
+
+function getFriendSuggestions($dbh, $userID) {
+    $stmt = $dbh->prepare("
+        SELECT u.userID, u.name, u.profile_photo 
+        FROM users u
+        WHERE u.userID != :userID 
+        AND NOT EXISTS (
+            SELECT * FROM userfriends uf WHERE (uf.userID = :userID AND uf.friendUserID = u.userID)
+            OR (uf.friendUserID = :userID AND uf.userID = u.userID)
+        )
+        ORDER BY RAND()
+        LIMIT 2
+    ");
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
