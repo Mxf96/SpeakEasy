@@ -38,11 +38,17 @@ h2, a {
     max-width: 100px;
 }
 
+.friend-suggestions-container img {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 .friend-suggestions-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
+    justify-content: flex-start;
     margin-left: 10px;
 }
 
@@ -52,8 +58,8 @@ h2, a {
     border-radius: 10px;
     padding: 10px;
     text-align: center;
-    width: 100px;
-    height: 100px;
+    width: 25%;
+    height: 25%;
 }
 
 .friend-suggestion-card a {
@@ -69,6 +75,7 @@ h2, a {
 
 .suggestion-profile-photo {
     width: 50%;
+    height: 50%;
     border: 3px solid #ccc;
 }
 

@@ -63,7 +63,9 @@ require '../includes/inc-top-profile.php';
         <h3>Ma bio</h3>
         <div class="bio-content">
             <p><?= sanitize_input($userDescription ?? 'No bio set.'); ?></p>
-            <i class="fas fa-cog settings-icon" id="settingsIcon"></i>
+            <?php if ($isProfileOwner) : ?>
+                <i class="fas fa-cog settings-icon" id="settingsIcon"></i>
+            <?php endif; ?>
         </div>
     </div>
 </div>

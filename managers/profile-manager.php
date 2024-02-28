@@ -32,11 +32,55 @@ function getUserDescription($dbh, $userID) {
 }
 
 function updateUserProfileImage($dbh, $userID, $fileName) {
-    // Ici, on enregistre seulement le nom du fichier en base de données.
-    $stmt = $dbh->prepare("UPDATE users SET profile_photo = :fileName WHERE userID = :userID");
-    $stmt->execute([':fileName' => $fileName, ':userID' => $userID]);
+    // Chemin vers le dossier des images de profil
+    $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/assets/pictures/userPictures/";
+    $targetFile = $targetDir . $fileName;
+
+    // Dimensions souhaitées
+    $desiredWidth = 214;
+    $desiredHeight = 261;
+
+    // Redimensionner l'image
+    list($originalWidth, $originalHeight) = getimagesize($targetFile);
+    $src = imagecreatefromstring(file_get_contents($targetFile));
+    $dst = imagecreatetruecolor($desiredWidth, $desiredHeight);
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $desiredWidth, $desiredHeight, $originalWidth, $originalHeight);
+
+    // Enregistrer l'image redimensionnée
+    $imageSaveFunction = getImageSaveFunction($fileName);
+    if ($imageSaveFunction) {
+        $imageSaveFunction($dst, $targetFile);
+    }
+
+    // Libérer les ressources
+    imagedestroy($src);
+    imagedestroy($dst);
+
+    // Ajoute le chemin complet vers le fichier d'image
+    $filePath = "/assets/pictures/userPictures/" . $fileName;
+
+    // Mise à jour de la photo de profil dans la base de données
+    $stmt = $dbh->prepare("UPDATE users SET profile_photo = :filePath WHERE userID = :userID");
+    $stmt->execute([':filePath' => $filePath, ':userID' => $userID]);
 }
 
+/**
+ * Détermine la fonction PHP à utiliser pour sauvegarder l'image selon son extension.
+ */
+function getImageSaveFunction($fileName) {
+    $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    switch ($extension) {
+        case 'jpeg':
+        case 'jpg':
+            return 'imagejpeg';
+        case 'png':
+            return 'imagepng';
+        case 'gif':
+            return 'imagegif';
+        default:
+            return null;
+    }
+}
 
 function updateUserDetails($dbh, $userID, $name, $bio) {
     // Récupère les informations actuelles de l'utilisateur pour vérifier si des valeurs sont fournies
