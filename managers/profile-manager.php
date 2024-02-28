@@ -98,9 +98,9 @@ function updateUserDetails($dbh, $userID, $name, $bio) {
     $stmt->execute([':name' => $name, ':bio' => $bio, ':userID' => $userID]);
 }
 
-function addFriendProfile($pdo, $userID, $friendID) {
+function addFriendProfile($dbh, $userID, $friendID) {
     // First, check if the friendship already exists to prevent duplicates
-    $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM userfriends WHERE (userID = :userID AND friendUserID = :friendID) OR (userID = :friendID AND friendUserID = :userID)");
+    $checkStmt = $dbh->prepare("SELECT COUNT(*) FROM userfriends WHERE (userID = :userID AND friendUserID = :friendID) OR (userID = :friendID AND friendUserID = :userID)");
     $checkStmt->execute([':userID' => $userID, ':friendID' => $friendID]);
     $exists = $checkStmt->fetchColumn() > 0;
 
@@ -109,7 +109,7 @@ function addFriendProfile($pdo, $userID, $friendID) {
         return "Une amitié existe déjà ou une demande est en attente.";
     } else {
         // Insert the new friendship request
-        $insertStmt = $pdo->prepare("INSERT INTO userfriends (userID, friendUserID, status) VALUES (:userID, :friendID, 'pending')");
+        $insertStmt = $dbh->prepare("INSERT INTO userfriends (userID, friendUserID, status) VALUES (:userID, :friendID, 'pending')");
         $success = $insertStmt->execute([':userID' => $userID, ':friendID' => $friendID]);
 
         if ($success) {

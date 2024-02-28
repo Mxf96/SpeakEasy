@@ -22,7 +22,7 @@ body {
 }
 
 .bio-container {
-    margin-top: 20px;
+    margin-top: 30px;
     width: 25%;
     background-color: #ccc;
     padding: 20px;
@@ -110,11 +110,10 @@ footer {
     font-size: 18px;
     transition: background-color 0.3s, transform 0.2s;
     font-weight: bolder;
-    margin-top: 10px;
 }
 
 .addbutton {
-    width: 100%;
+    width: 20%;
     padding: 10px;
     background-color: #10222D;
     color: white;
