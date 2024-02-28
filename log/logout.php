@@ -1,5 +1,5 @@
 <?php
-require '../includes/inc-db-connect.php';
+require_once '../includes/inc-db-connect.php';
 unset($_SESSION['user']);
 session_destroy();
 

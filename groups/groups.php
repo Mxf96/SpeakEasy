@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/inc-db-connect.php';
 require_once '../managers/profile-manager.php';
-require '../managers/group-manager.php';
+require_once '../managers/group-manager.php';
 require_once '../managers/security-manager.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteGroup'])) {
 
 $groupsList = getUserGroups($dbh, $userID);
 
-require '../includes/inc-top-home.php';
+require_once '../includes/inc-top-home.php';
 ?>
 <main class="groups-page">
     <a href="/home/home.php" class="back">Retour</a>
@@ -93,4 +93,4 @@ require '../includes/inc-top-home.php';
     <?php endif; ?>
 </main>
 <script src="../scripts/addGroups.js"></script>
-<?php require '../includes/inc-bottom.php'; ?>
+<?php require_once '../includes/inc-bottom.php'; ?>

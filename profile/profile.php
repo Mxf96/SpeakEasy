@@ -1,5 +1,5 @@
 <?php
-require '../includes/inc-db-connect.php';
+require_once '../includes/inc-db-connect.php';
 require_once '../managers/security-manager.php';
 require_once '../managers/profile-manager.php';
 
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic']) && $is
     }
 }
 
-require '../includes/inc-top-profile.php';
+require_once '../includes/inc-top-profile.php';
 ?>
 
 <div class="profile-container">
@@ -72,4 +72,4 @@ require '../includes/inc-top-profile.php';
 
 <script src="../scripts/addFriendProfile.js"></script>
 <script src="../scripts/setting.js"></script>
-<?php require '../includes/inc-bottom.php'; ?>
+<?php require_once '../includes/inc-bottom.php'; ?>

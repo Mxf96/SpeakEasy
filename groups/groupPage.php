@@ -1,5 +1,5 @@
 <?php
-require '../includes/inc-db-connect.php';
+require_once '../includes/inc-db-connect.php';
 require_once '../managers/group-manager.php';
 require_once '../managers/security-manager.php';
 
@@ -57,7 +57,7 @@ $groupName = $groupInfo['name'] ?? 'Groupe Inconnu';
 $channels = getChannels($dbh, $groupID);
 $groupMessages = $channelID ? getGroupMessagesByChannel($dbh, $groupID, $channelID) : [];
 
-require '../includes/inc-top-group.php';
+require_once '../includes/inc-top-group.php';
 ?>
 
 <main class="group-page-container">
@@ -154,4 +154,4 @@ require '../includes/inc-top-group.php';
 </main>
 
 <script src="../scripts/addChannels.js"></script>
-<?php require '../includes/inc-bottom.php' ?>
+<?php require_once '../includes/inc-bottom.php' ?>

@@ -1,6 +1,6 @@
 <?php
-require '../includes/inc-db-connect.php';
-require '../managers/friend-manager.php';
+require_once '../includes/inc-db-connect.php';
+require_once '../managers/friend-manager.php';
 
 if (!isset($_SESSION['user_id']) || !isset($_POST['friendUserID'])) {
     header('Location: ../log/login.php');

@@ -23,11 +23,12 @@ h2, a {
 }
 
 .unread-messages {
-    position: relative; 
+    position: relative;
+    margin-left: 10px;
 }
 
-.h2 {
-    margin-left: -10px;
+.unread-messages p {
+    margin-left: 10px;
 }
 
 .activities {
@@ -38,32 +39,38 @@ h2, a {
     max-width: 100px;
 }
 
+.h2 {
+    margin-left: 70px;
+}
+
 .friend-suggestions-container img {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    width: 80%;
+    border-radius: 50%;
 }
 
-.friend-suggestions-container {
-    display: flex;
-    flex-wrap: wrap;
+.friend-suggestions-container {    
     gap: 20px;
-    justify-content: flex-start;
-    margin-left: 10px;
 }
+
+
 
 .friend-suggestion-card {
     border: 3px solid #ccc;
     background-color: #0070a7;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
     width: 25%;
-    height: 25%;
+    margin-left: 100px;
 }
 
 .friend-suggestion-card a {
     text-decoration: none;
+    font-weight: bold;
+    font-size: medium;
 }
 
 .friend-suggestion-card img.profile-photo {
@@ -106,6 +113,10 @@ h2, a {
 .conversation a {
     text-decoration: none;
     margin-right: 10px;
+}
+
+.conversation a:hover {
+    color: #ccc;
 }
 /* friends */
 

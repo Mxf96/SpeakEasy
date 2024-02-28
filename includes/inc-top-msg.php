@@ -1,5 +1,5 @@
 <?php
-require 'inc-db-connect.php';
+require_once 'inc-db-connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">

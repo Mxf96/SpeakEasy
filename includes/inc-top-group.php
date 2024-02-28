@@ -1,5 +1,5 @@
 <?php
-require 'inc-db-connect.php';
+require_once 'inc-db-connect.php';
 require_once '../managers/profile-manager.php';
 require_once '../managers/group-manager.php';
 require_once '../managers/security-manager.php';

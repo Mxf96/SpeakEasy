@@ -1,7 +1,7 @@
 <?php
-require '../includes/inc-db-connect.php';
+require_once '../includes/inc-db-connect.php';
 require_once '../managers/security-manager.php';
-require '../managers/message-manager.php';
+require_once '../managers/message-manager.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
@@ -25,7 +25,7 @@ if ($selectedFriendID) {
     $messages = getMessagesBetweenUsers($dbh, $userID, $selectedFriendID);
 }
 
-require '../includes/inc-top-msg.php';
+require_once '../includes/inc-top-msg.php';
 ?>
 <main class="main-container">
     <a href="/home/home.php" class="back">Retour</a>
@@ -51,4 +51,4 @@ require '../includes/inc-top-msg.php';
         </div>
     <?php endif; ?>
 </main>
-<?php require '../includes/inc-bottom.php'; ?>
+<?php require_once '../includes/inc-bottom.php'; ?>

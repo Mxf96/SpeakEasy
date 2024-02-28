@@ -1,5 +1,5 @@
 <?php 
-require 'includes/inc-top.php';
+require_once 'includes/inc-top.php';
 ?>
     <main>
         <div class="welcome-text">
@@ -15,5 +15,5 @@ require 'includes/inc-top.php';
         </div>
     </main>
 <?php 
-require 'includes/inc-bottom.php';
+require_once 'includes/inc-bottom.php';
 ?>

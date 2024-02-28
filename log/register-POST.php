@@ -1,5 +1,5 @@
 <?php
-require '../includes/inc-db-connect.php';
+require_once '../includes/inc-db-connect.php';
 require_once '../managers/security-manager.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

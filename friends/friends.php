@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/inc-db-connect.php';
 require_once '../managers/profile-manager.php';
-require '../managers/friend-manager.php';
+require_once '../managers/friend-manager.php';
 require_once '../managers/security-manager.php';
 require_once '../managers/profile-manager.php';
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['friendName'])) {
 $friendsList = getFriendsList($dbh, $userID);
 $pendingRequests = getPendingFriendRequests($dbh, $userID);
 
-require '../includes/inc-top-home.php';
+require_once '../includes/inc-top-home.php';
 ?>
 <main class="friends-page">
     <a href="/home/home.php" class="back">Retour</a>
@@ -87,4 +87,4 @@ require '../includes/inc-top-home.php';
     </section>
 </main>
 <script src="../scripts/addFriends.js"></script>
-<?php require '../includes/inc-bottom.php'; ?>
+<?php require_once '../includes/inc-bottom.php'; ?>

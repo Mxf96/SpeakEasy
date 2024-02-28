@@ -1,5 +1,5 @@
 <?php
-require '../includes/inc-db-connect.php'; 
+require_once '../includes/inc-db-connect.php'; 
 
 function insertMessage($dbh, $fromUserID, $toUserID, $message) {
     $sql = "INSERT INTO messages (fromUserID, toUserID, content, dateTime) VALUES (:fromUserID, :toUserID, :content, NOW())";

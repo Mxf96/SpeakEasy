@@ -1,7 +1,7 @@
 <?php
 // Include the database connection and group manager for database operations
-require '../includes/inc-db-connect.php';
-require '../managers/group-manager.php';
+require_once '../includes/inc-db-connect.php';
+require_once '../managers/group-manager.php';
 
 if (!isset($_SESSION['user_id'])) {
     // If the user is not logged in, redirect to the login page

@@ -1,5 +1,5 @@
 <?php
-require '../includes/inc-db-connect.php';
+require_once '../includes/inc-db-connect.php';
 
 // Fonction pour obtenir la liste des amis
 function getFriendsList($dbh, $userID) {

@@ -1,7 +1,7 @@
 <?php 
 require_once '../includes/inc-db-connect.php';
 $title = "S'inscrire";
-require '../includes/inc-top-form.php'; 
+require_once '../includes/inc-top-form.php'; 
 
 // Clear form data if there's no error message
 if (!isset($_SESSION['error_message'])) {

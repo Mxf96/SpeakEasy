@@ -28,11 +28,40 @@ $lastConversations = getLastConversations($dbh, $userID);
 // Supposons que $dbh est votre objet de connexion à la base de données et $userID l'ID de l'utilisateur connecté
 $friendSuggestions = getFriendSuggestions($dbh, $userID);
 
-require '../includes/inc-top-home.php';
+require_once '../includes/inc-top-home.php';
 ?>
 <main class="main-layout">
+    <!-- Partie à gauche  -->
+    <section class="unread-messages">
+        <h2>Bienvenue, <?= htmlspecialchars($userName); ?>!</h2>
+        <?php if (!empty($unreadMessagesByUser)) : ?>
+            <h3>Vous avez des messages non lus de :</h3>
+            <ul>
+                <?php foreach ($unreadMessagesByUser as $messageInfo) : ?>
+                    <li><?= htmlspecialchars($messageInfo['name']) ?>: <?= $messageInfo['count'] ?> messages non lu(s)</li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else : ?>
+            <p>Vous n'avez aucun message non lu.</p>
+        <?php endif; ?>
+    </section>
+    <!-- Partie centrale  -->
+    <section class="activities">
+        <h2>Activités récentes</h2>
+        <?php foreach ($lastConversations as $conversation) : ?>
+            <div class="conversation">
+                <p>
+                    <strong>
+                        <a href="/messages/private-messages.php?friendID=<?= htmlspecialchars($conversation['otherUserID']) ?>"><?= htmlspecialchars($conversation['userName']) ?></a>
+                        </a>
+                    </strong>
+                </p>
+            </div>
+        <?php endforeach; ?>
+    </section>
+    <!-- Partie à droite  -->
     <section class="friend-suggestions">
-        <h2>Suggestions d'amis</h2>
+        <h2 class="h2">Suggestions d'amis</h2>
         <?php if (!empty($friendSuggestions)) : ?>
             <div class="friend-suggestions-container">
                 <?php foreach ($friendSuggestions as $suggestion) : ?>
@@ -50,37 +79,7 @@ require '../includes/inc-top-home.php';
             <p>Pas de suggestions d'amis pour le moment.</p>
         <?php endif; ?>
     </section>
-
-    <div class="unread-messages">
-        <h2 class="h2">Bienvenue, <?= htmlspecialchars($userName); ?>!</h2>
-        <?php if (!empty($unreadMessagesByUser)) : ?>
-            <h3>Vous avez des messages non lus de :</h3>
-            <ul>
-                <?php foreach ($unreadMessagesByUser as $messageInfo) : ?>
-                    <li><?= htmlspecialchars($messageInfo['name']) ?>: <?= $messageInfo['count'] ?> messages non lu(s)</li>
-                <?php endforeach; ?>
-            </ul>
-        <?php else : ?>
-            <p>Vous n'avez aucun message non lu.</p>
-        <?php endif; ?>
-    </div>
-
-    <div class="dashboard">
-        <section class="activities">
-            <h2 class="h2">Activités récentes</h2>
-            <?php foreach ($lastConversations as $conversation) : ?>
-                <div class="conversation">
-                    <p>
-                        <strong>
-                            <a href="/messages/private-messages.php?friendID=<?= htmlspecialchars($conversation['otherUserID']) ?>"><?= htmlspecialchars($conversation['userName']) ?></a>
-                            </a>
-                        </strong>
-                    </p>
-                </div>
-            <?php endforeach; ?>
-        </section>
-    </div>
 </main>
 <?php
-require '../includes/inc-bottom.php';
+require_once '../includes/inc-bottom.php';
 ?>
