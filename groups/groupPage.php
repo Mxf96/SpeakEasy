@@ -69,7 +69,7 @@ require '../includes/inc-top-group.php';
                 </a>
                 <a href="#" id="addChannelButton" style="text-decoration: none;" class="add-channel-btn">+</a>
                 <form id="addChannelForm" action="groupPage.php?groupID=<?= $groupID ?>" method="post" style="display: none;" class="form-container">
-                    <input type="text" class="group-input" name="channelName" placeholder="Nom du salon" required />
+                    <input type="text" class="group-input" name="channelName" placeholder="Nom du salon"/>
                     <input type="text" class="group-input" name="channelDescription" placeholder="Description du salon" />
                     <button type="submit" class="group-button" name="addChannel">Créer le salon</button>
                 </form>
@@ -86,7 +86,7 @@ require '../includes/inc-top-group.php';
                         <a href="#" onclick="showUpdateForm(<?= $channel['channelID'] ?>, '<?= addslashes(sanitize_input($channel['name'])) ?>', '<?= addslashes(sanitize_input($channel['description'])) ?>')" class="up-channel-btn">+</a>
                         <form id="updateChannelForm" style="display: none;">
                             <input type="hidden" id="updateChannelID" name="channelIDToUpdate" class="group-input">
-                            <input type="text" id="newChannelName" name="newChannelName" placeholder="Nouveau nom du salon" required class="group-input">
+                            <input type="text" id="newChannelName" name="newChannelName" placeholder="Nouveau nom du salon" class="group-input">
                             <input type="text" id="newChannelDescription" name="newChannelDescription" placeholder="Nouvelle description du salon" class="group-input">
                             <button type="submit" class="group-button">Mettre à jour</button>
                         </form>
@@ -135,7 +135,7 @@ require '../includes/inc-top-group.php';
             <?php if ($channelID) : ?>
                 <form action="groupPage.php?groupID=<?= sanitize_input($groupID) ?>&channelID=<?= sanitize_input($channelID) ?>" method="post" class="form">
                     <input type="hidden" name="groupID" value="<?= sanitize_input($groupID) ?>">
-                    <input name="message" required class="message-input" />
+                    <input name="message" class="message-input" />
                     <button type="submit" class="send-button">Envoyer</button>
                 </form>
             <?php endif; ?>
