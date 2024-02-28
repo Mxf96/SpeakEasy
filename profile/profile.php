@@ -18,8 +18,8 @@ $userName = getUserName($dbh, $userID);
 $userDescription = $userInfo['description'] ?? 'No description set.';
 $profilePhoto = $userInfo['profile_photo'] ?? '/assets/pictures/default-profile.png';
 
-// Vérifie si l'utilisateur actuel est le propriétaire du profil pour afficher le formulaire d'upload
-$isProfileOwner = $userID === $_SESSION['user_id'];
+// Appeler la fonction pour vérifier si l'utilisateur actuel est le propriétaire du profil
+$isProfileOwner = isProfileOwner($dbh, $userID);
 
 $alreadyFriends = isAlreadyFriend($dbh, $_SESSION['user_id'], $userID);
 
@@ -38,15 +38,15 @@ require '../includes/inc-top-profile.php';
 
 <div class="profile-container">
     <h1><?= htmlspecialchars($userName); ?></h1>
-    <?php if ($isProfileOwner): ?>
-    <!-- Si le propriétaire du profil est connecté, il peut cliquer sur son image pour la changer -->
-    <img src="<?= sanitize_input($profilePhoto); ?>" alt="Profile Picture" class="profile-picture" onclick="document.getElementById('profile_pic').click();" style="cursor: pointer;">
-    <form action="profile.php" method="post" enctype="multipart/form-data">
-        <input type="file" name="profile_pic" id="profile_pic" hidden onchange="this.form.submit();">
-    </form>
-    <?php else: ?>
-    <!-- Afficher l'image sans possibilité de modification -->
-    <img src="<?= sanitize_input($profilePhoto); ?>" alt="Profile Picture" class="profile-picture">
+    <?php if ($isProfileOwner) : ?>
+        <!-- Si le propriétaire du profil est connecté, il peut cliquer sur son image pour la changer -->
+        <img src="<?= sanitize_input($profilePhoto); ?>" alt="Profile Picture" class="profile-picture" onclick="document.getElementById('profile_pic').click();" style="cursor: pointer;">
+        <form action="profile.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="profile_pic" id="profile_pic" hidden onchange="this.form.submit();">
+        </form>
+    <?php else : ?>
+        <!-- Afficher l'image sans possibilité de modification -->
+        <img src="<?= sanitize_input($profilePhoto); ?>" alt="Profile Picture" class="profile-picture">
     <?php endif; ?>
     <!-- Le reste du code reste inchangé -->
     <div id="settingsForm" style="display:none;">
@@ -56,17 +56,26 @@ require '../includes/inc-top-profile.php';
             <button type="submit" class="button">Mettre à jour le profil</button>
         </form>
     </div>
-    <?php if (!$alreadyFriends && !$isProfileOwner) {
+    <?php if (!$alreadyFriends) {
         echo '<button class="addbutton" onclick="addFriend(' . htmlspecialchars($userID) . ')">Ajouter comme ami</button>';
     } ?>
     <div class="bio-container">
         <h3>Ma bio</h3>
         <div class="bio-content">
-            <p><?= sanitize_input($userDescription ?? 'No bio set.'); ?></p>
-            <i class="fas fa-cog settings-icon" id="settingsIcon"></i>
+            <p>
+                <?= sanitize_input($userDescription ?? 'No bio set.'); ?>
+            </p>
+            <div class="bio-content">
+                <p>
+                    <?= sanitize_input($userDescription ?? 'No bio set.'); ?>
+                </p>
+                <?php if ($isProfileOwner) : ?>
+                    <i class="fas fa-cog settings-icon" id="settingsIcon" style="color: #333; position: absolute; top: 10px; right: 10px; cursor: pointer;"></i>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>
 
-<script src="/scripts/setting.js"></script>
+<script src="../scripts/setting.js"></script>
 <?php require '../includes/inc-bottom.php'; ?>
