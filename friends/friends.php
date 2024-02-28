@@ -1,4 +1,5 @@
 <?php
+require_once '../includes/inc-db-connect.php';
 require_once '../managers/profile-manager.php';
 require '../managers/friend-manager.php';
 require_once '../managers/security-manager.php';
@@ -67,7 +68,7 @@ require '../includes/inc-top-home.php';
                                     <input type="hidden" name="action" value="accept">
                                     <button type="submit" class="accept-btn">Accepter</button>
                                 </form>
-                                <form action="declineFriendRequest.php" method="post" class="invitation-form">
+                                <form action="/friends/removeFriend.php" method="post" class="invitation-form">
                                     <input type="hidden" name="friendUserID" value="<?= $request['userID']; ?>">
                                     <input type="hidden" name="action" value="decline">
                                     <button type="submit" class="decline-btn">Décliner</button>
@@ -85,5 +86,5 @@ require '../includes/inc-top-home.php';
         <?php endif; ?>
     </section>
 </main>
-<script src="/scripts/addFriends.js"></script>
+<script src="../scripts/addFriends.js"></script>
 <?php require '../includes/inc-bottom.php'; ?>

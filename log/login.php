@@ -1,4 +1,5 @@
 <?php 
+require_once '../includes/inc-db-connect.php';
 $title = "Connexion";
 require '../includes/inc-top-form.php';
 
@@ -13,10 +14,16 @@ require '../includes/inc-top-form.php';
                     <?php unset($_SESSION['success_message']); ?>
                 </div>
             <?php endif; ?>
+            <?php if (isset($_SESSION['error_message'])) : ?>
+                <div class="alert error">
+                    <?= $_SESSION['error_message']; ?>
+                    <?php unset($_SESSION['error_message']); ?>
+                </div>
+            <?php endif; ?>
             <form action="/log/login-POST.php" method="post">
                 <div>
                     <label for="email">Email :</label>
-                    <input type="email" id="email" name="email">
+                    <input type="email" id="email" name="email" value="<?= htmlspecialchars($_SESSION['form_data']['email'] ?? '') ?>">
                 </div>
                 <div>
                     <label for="password">Mot de passe :</label>

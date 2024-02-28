@@ -31,10 +31,12 @@ function getUserDescription($dbh, $userID) {
     }
 }
 
-function updateUserProfileImage($dbh, $userID, $filePath) {
-    $stmt = $dbh->prepare("UPDATE users SET profile_photo = :filePath WHERE userID = :userID");
-    $stmt->execute([':filePath' => '/assets/pictures/userPictures/' . $filePath, ':userID' => $userID]);
+function updateUserProfileImage($dbh, $userID, $fileName) {
+    // Ici, on enregistre seulement le nom du fichier en base de données.
+    $stmt = $dbh->prepare("UPDATE users SET profile_photo = :fileName WHERE userID = :userID");
+    $stmt->execute([':fileName' => $fileName, ':userID' => $userID]);
 }
+
 
 function updateUserDetails($dbh, $userID, $name, $bio) {
     // Récupère les informations actuelles de l'utilisateur pour vérifier si des valeurs sont fournies
@@ -52,10 +54,51 @@ function updateUserDetails($dbh, $userID, $name, $bio) {
     $stmt->execute([':name' => $name, ':bio' => $bio, ':userID' => $userID]);
 }
 
-function isAlreadyFriend($dbh, $currentUser, $profileUser) {
-    $stmt = $dbh->prepare("SELECT COUNT(*) FROM userfriends WHERE (userID = :currentUser AND friendUserID = :profileUser) OR (userID = :profileUser AND friendUserID = :currentUser) AND status = 'accepted'");
-    $stmt->execute([':currentUser' => $currentUser, ':profileUser' => $profileUser]);
-    return $stmt->fetchColumn() > 0;
+function addFriendProfile($pdo, $userID, $friendID) {
+    // First, check if the friendship already exists to prevent duplicates
+    $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM userfriends WHERE (userID = :userID AND friendUserID = :friendID) OR (userID = :friendID AND friendUserID = :userID)");
+    $checkStmt->execute([':userID' => $userID, ':friendID' => $friendID]);
+    $exists = $checkStmt->fetchColumn() > 0;
+
+    if ($exists) {
+        // Friendship already exists
+        return "Une amitié existe déjà ou une demande est en attente.";
+    } else {
+        // Insert the new friendship request
+        $insertStmt = $pdo->prepare("INSERT INTO userfriends (userID, friendUserID, status) VALUES (:userID, :friendID, 'pending')");
+        $success = $insertStmt->execute([':userID' => $userID, ':friendID' => $friendID]);
+
+        if ($success) {
+            return "Demande d'ami envoyée avec succès.";
+        } else {
+            return "Échec de l'envoi de la demande d'ami.";
+        }
+    }
 }
 
+function isProfileOwner($dbh, $userID) {
+    if (!isset($_SESSION['user_id'])) {
+        // Si l'utilisateur n'est pas connecté, retourner false
+        return false;
+    }
+
+    // Récupérer l'ID de l'utilisateur connecté depuis la session
+    $sessionUserID = $_SESSION['user_id'];
+
+    // Vérifier si l'ID de l'utilisateur de la session correspond à l'ID du profil visualisé
+    if ($userID == $sessionUserID) {
+        // L'utilisateur actuel est le propriétaire du profil
+        return true;
+    } else {
+        // L'utilisateur actuel n'est pas le propriétaire du profil
+        return false;
+    }
+}
+
+// Fonction pour vérifier si les utilisateurs sont déjà amis
+function isAlreadyFriend($dbh, $friendID, $userID) {
+    $stmt = $dbh->prepare("SELECT * FROM userfriends WHERE (userID = ? AND friendUserID = ?) OR (userID = ? AND friendUserID = ?)");
+    $stmt->execute([$friendID, $userID, $userID, $friendID]);
+    return $stmt->fetch() ? true : false;
+}
 ?>

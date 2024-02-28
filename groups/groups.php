@@ -1,4 +1,5 @@
 <?php
+require_once '../includes/inc-db-connect.php';
 require_once '../managers/profile-manager.php';
 require '../managers/group-manager.php';
 require_once '../managers/security-manager.php';
@@ -91,5 +92,5 @@ require '../includes/inc-top-home.php';
         <p><?= $message; ?></p>
     <?php endif; ?>
 </main>
-<script src="/scripts/addGroups.js"></script>
+<script src="../scripts/addGroups.js"></script>
 <?php require '../includes/inc-bottom.php'; ?>

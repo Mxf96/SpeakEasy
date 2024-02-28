@@ -3,6 +3,8 @@ require '../includes/inc-db-connect.php';
 require_once '../managers/security-manager.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $_SESSION['form_data'] = $_POST; // Keep form data
+
     if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['confirm_password'])) {
         $_SESSION['error_message'] = "Tous les champs doivent être remplis.";
         header('Location: register.php');
@@ -20,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Vérification de l'unicité de l'email
+    // Verification of the email's uniqueness
     $stmt = $dbh->prepare("SELECT email FROM users WHERE email = ?");
     $stmt->execute([$email]);
     if ($stmt->fetch()) {
@@ -30,23 +32,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $signUpDate = date("Y-m-d"); // Format de date pour MySQL
+    $signUpDate = date("Y-m-d"); // Date format for MySQL
 
-    // Choix aléatoire de l'image de profil par défaut
-    $directoryPath = '../assets/pictures/userPictures';
-    $imageFiles = glob($directoryPath . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-    if ($imageFiles) {
-        shuffle($imageFiles); // Mélanger le tableau des images
-        $randomImageFilePath = $imageFiles[0]; // Prendre la première image après le mélange
-        $profilePhoto = "/assets/pictures/userPictures/" . basename($randomImageFilePath);
-    } else {
-        error_log('No default user pictures found in ' . $directoryPath);
-    }
+    // Random profile picture selection
+    $availableImages = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'];
+    $randomImage = $availableImages[array_rand($availableImages)];
+    $profilePhoto = "/assets/pictures/userPictures/" . $randomImage;
 
     try {
-        // Insertion de l'utilisateur avec la photo de profil par défaut
+        // User insertion with randomly selected default profile picture
         $stmt = $dbh->prepare("INSERT INTO users (name, email, password, signUpDate, profile_photo) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$name, $email, $hashed_password, $signUpDate, $profilePhoto]);
+
+        // Get the ID of the newly created user
+        $newUserID = $dbh->lastInsertId();
+
+        // Automatically add the user to their own friends list
+        $stmt = $dbh->prepare("INSERT INTO userfriends (userID, friendUserID, status) VALUES (:userID, :friendID, 'accepted')");
+        $stmt->execute([':userID' => $newUserID, ':friendID' => $newUserID]);
 
         $_SESSION['success_message'] = "Inscription réussie. Vous pouvez maintenant vous connecter.";
         header('Location: ../log/login.php');

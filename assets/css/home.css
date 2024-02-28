@@ -9,6 +9,99 @@ main {
 h2, a {
     color: #FFC107;
 }
+
+/* home */
+
+.main-layout {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-area {
+    flex: 1; 
+    padding-right: 20px; 
+}
+
+.unread-messages {
+    position: relative; 
+}
+
+.h2 {
+    margin-left: -10px;
+}
+
+.activities {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 30px;
+    max-width: 100px;
+}
+
+.friend-suggestions-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.friend-suggestion-card {
+    border: 3px solid #ccc;
+    background-color: #0070a7;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+}
+
+.friend-suggestion-card a {
+    text-decoration: none;
+}
+
+.friend-suggestion-card img.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.suggestion-profile-photo {
+    width: 50%;
+    border: 3px solid #ccc;
+}
+
+.friend-suggestion-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.add-friend-btn, .ignore-suggestion-btn {
+    border: none;
+    padding: 5px 5px;
+    cursor: pointer;
+    width: 30%;
+    border: 2px solid #ccc;
+}
+
+.add-friend-btn {
+    background-color: green;
+    color: white;
+}
+
+.ignore-suggestion-btn {
+    background-color: red;
+    color: white;
+}
+
+.conversation a {
+    text-decoration: none;
+    margin-right: 10px;
+}
+/* friends */
+
 .addFriends {
     float: right;
     color: #FFC107;
@@ -20,7 +113,7 @@ h2, a {
 }
 
 .addFriends:hover {
-    color: #0070a7;
+    color: #ccc;
     text-decoration: underline;
     text-decoration: none;
 }
@@ -139,6 +232,10 @@ button:hover {
     list-style: none;
     padding: 0;
     
+}
+
+.friends-list li {
+    list-style-type: none;
 }
 
 .profile_photo {
@@ -292,6 +389,8 @@ ul span {
     }
 }
 
+/* groups */
+
 /* Styles spécifiques pour la section des groupes */
 .groups-page {
     display: flex;
@@ -320,6 +419,7 @@ ul span {
 .group-list li {
     padding: 10px 0;
     border-bottom: 1px solid #eee;
+    list-style-type: none;
 }
 
 .groups-item {
@@ -414,7 +514,7 @@ ul span {
 }
 
 .group-actions a:hover {
-    color: #0070a7;
+    color: #ccc;
     text-decoration: underline;
     text-decoration: none;
 }

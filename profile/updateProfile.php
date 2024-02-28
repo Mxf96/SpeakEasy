@@ -1,6 +1,6 @@
 <?php
 require_once '../managers/profile-manager.php';
-
+require_once '../includes/inc-db-connect.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
