@@ -101,6 +101,23 @@ span {
     margin-left: 20px;
 }
 
+.groupName {
+    cursor: pointer;
+    color: white;
+    border: none;
+    padding: 1px;
+    float: left;
+
+}
+
+.groupName:hover {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #cccccc8f;
+    color: #0070a7;
+    transition: all 1s ease-in-out;
+}
+
 .add-channel-btn {
     cursor: pointer;
     color: white;

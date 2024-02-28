@@ -1,4 +1,5 @@
 <?php 
+require_once '../includes/inc-db-connect.php';
 $title = "S'inscrire";
 require '../includes/inc-top-form.php'; 
 

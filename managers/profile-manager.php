@@ -76,6 +76,25 @@ function addFriendProfile($pdo, $userID, $friendID) {
     }
 }
 
+function isProfileOwner($dbh, $userID) {
+    if (!isset($_SESSION['user_id'])) {
+        // Si l'utilisateur n'est pas connecté, retourner false
+        return false;
+    }
+
+    // Récupérer l'ID de l'utilisateur connecté depuis la session
+    $sessionUserID = $_SESSION['user_id'];
+
+    // Vérifier si l'ID de l'utilisateur de la session correspond à l'ID du profil visualisé
+    if ($userID == $sessionUserID) {
+        // L'utilisateur actuel est le propriétaire du profil
+        return true;
+    } else {
+        // L'utilisateur actuel n'est pas le propriétaire du profil
+        return false;
+    }
+}
+
 // Fonction pour vérifier si les utilisateurs sont déjà amis
 function isAlreadyFriend($dbh, $friendID, $userID) {
     $stmt = $dbh->prepare("SELECT * FROM userfriends WHERE (userID = ? AND friendUserID = ?) OR (userID = ? AND friendUserID = ?)");

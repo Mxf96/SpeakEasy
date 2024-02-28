@@ -49,7 +49,7 @@ if ($groupID) {
                 <a href="/home/home.php">Home</a>
                 <a href="/friends/friends.php">Amis</a>
                 <a href="/groups/groups.php">Groupes</a>
-                <a href="/profile/profile.php">Profile</a>
+                <a href="/profile/profile.php?userID=<?= $_SESSION['user_id']; ?>">Profile</a>
                 <a href="/log/logout.php">Déconnexion</a>
             </div>
         </header>

@@ -1,4 +1,5 @@
 <?php 
+require_once '../includes/inc-db-connect.php';
 $title = "Connexion";
 require '../includes/inc-top-form.php';
 

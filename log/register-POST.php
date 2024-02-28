@@ -44,6 +44,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $dbh->prepare("INSERT INTO users (name, email, password, signUpDate, profile_photo) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$name, $email, $hashed_password, $signUpDate, $profilePhoto]);
 
+        // Get the ID of the newly created user
+        $newUserID = $dbh->lastInsertId();
+
+        // Automatically add the user to their own friends list
+        $stmt = $dbh->prepare("INSERT INTO userfriends (userID, friendUserID, status) VALUES (:userID, :friendID, 'accepted')");
+        $stmt->execute([':userID' => $newUserID, ':friendID' => $newUserID]);
+
         $_SESSION['success_message'] = "Inscription réussie. Vous pouvez maintenant vous connecter.";
         header('Location: ../log/login.php');
         exit;

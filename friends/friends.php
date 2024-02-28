@@ -1,4 +1,5 @@
 <?php
+require_once '../includes/inc-db-connect.php';
 require_once '../managers/profile-manager.php';
 require '../managers/friend-manager.php';
 require_once '../managers/security-manager.php';
@@ -85,5 +86,5 @@ require '../includes/inc-top-home.php';
         <?php endif; ?>
     </section>
 </main>
-<script src="/scripts/addFriends.js"></script>
+<script src="../scripts/addFriends.js"></script>
 <?php require '../includes/inc-bottom.php'; ?>

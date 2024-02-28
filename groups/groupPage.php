@@ -64,7 +64,9 @@ require '../includes/inc-top-group.php';
     <div class="group-conversations">
         <div class="<?= sanitize_input($channelsContainerClass) ?>">
             <div class="channel-header">
-                <span><?= sanitize_input($groupName) ?></span>
+                <a href="http://speakeasy.local/groups/groupPage.php?groupID=<?= intval($_GET['groupID']) ?>">
+                    <span class="groupName"><?= sanitize_input($groupName) ?></span>
+                </a>
                 <a href="#" id="addChannelButton" style="text-decoration: none;" class="add-channel-btn">+</a>
                 <form id="addChannelForm" action="groupPage.php?groupID=<?= $groupID ?>" method="post" style="display: none;" class="form-container">
                     <input type="text" class="group-input" name="channelName" placeholder="Nom du salon" required />
@@ -151,5 +153,5 @@ require '../includes/inc-top-group.php';
     </div>
 </main>
 
-<script src="/scripts/addChannels.js"></script>
+<script src="../scripts/addChannels.js"></script>
 <?php require '../includes/inc-bottom.php' ?>
