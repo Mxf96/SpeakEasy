@@ -38,15 +38,15 @@ require '../includes/inc-top-profile.php';
 
 <div class="profile-container">
     <h1><?= htmlspecialchars($userName); ?></h1>
-    <?php if ($isProfileOwner) : ?>
-        <!-- Si le propriétaire du profil est connecté, il peut cliquer sur son image pour la changer -->
-        <img src="<?= sanitize_input($profilePhoto); ?>" alt="Profile Picture" class="profile-picture" onclick="document.getElementById('profile_pic').click();" style="cursor: pointer;">
-        <form action="profile.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="profile_pic" id="profile_pic" hidden onchange="this.form.submit();">
-        </form>
-    <?php else : ?>
-        <!-- Afficher l'image sans possibilité de modification -->
-        <img src="<?= sanitize_input($profilePhoto) . '?userID=' . $userID; ?>" alt="Profile Picture" class="profile-picture">
+    <?php if ($isProfileOwner): ?>
+    <!-- Si le propriétaire du profil est connecté, il peut cliquer sur son image pour la changer -->
+    <img src="<?= sanitize_input($profilePhoto); ?>" alt="Profile Picture" class="profile-picture" onclick="document.getElementById('profile_pic').click();" style="cursor: pointer;">
+    <form action="profile.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="profile_pic" id="profile_pic" hidden onchange="this.form.submit();">
+    </form>
+    <?php else: ?>
+    <!-- Afficher l'image sans possibilité de modification -->
+    <img src="<?= sanitize_input($profilePhoto); ?>" alt="Profile Picture" class="profile-picture">
     <?php endif; ?>
     <!-- Le reste du code reste inchangé -->
     <div id="settingsForm" style="display:none;">
@@ -62,13 +62,8 @@ require '../includes/inc-top-profile.php';
     <div class="bio-container">
         <h3>Ma bio</h3>
         <div class="bio-content">
-            <p>
-                <?= sanitize_input($userDescription ?? 'No bio set.'); ?>
-            </p>
-                <?php if ($isProfileOwner) : ?>
-                    <i class="fas fa-cog settings-icon" id="settingsIcon" style="color: #333; position: absolute; top: 10px; right: 10px; cursor: pointer;"></i>
-                <?php endif; ?>
-            </div>
+            <p><?= sanitize_input($userDescription ?? 'No bio set.'); ?></p>
+            <i class="fas fa-cog settings-icon" id="settingsIcon"></i>
         </div>
     </div>
 </div>
