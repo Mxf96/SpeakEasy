@@ -69,7 +69,7 @@ require_once '../includes/inc-top-group.php';
                 </a>
                 <a href="#" id="addChannelButton" style="text-decoration: none;" class="add-channel-btn">+</a>
                 <form id="addChannelForm" action="groupPage.php?groupID=<?= $groupID ?>" method="post" style="display: none;" class="form-container">
-                    <input type="text" class="group-input" name="channelName" placeholder="Nom du salon"/>
+                    <input type="text" class="group-input" name="channelName" placeholder="Nom du salon" />
                     <input type="text" class="group-input" name="channelDescription" placeholder="Description du salon" />
                     <button type="submit" class="group-button" name="addChannel">Créer le salon</button>
                 </form>
@@ -77,7 +77,7 @@ require_once '../includes/inc-top-group.php';
             <ul class="channels-list">
                 <?php foreach ($channels as $channel) : ?>
                     <li>
-                        <a href="groupPage.php?groupID=<?= sanitize_input($groupID) ?>&channelID=<?= sanitize_input($channel['channelID']) ?>" style="text-decoration: none; color: inherit;">
+                        <a href="groupPage.php?groupID=<?= sanitize_input($groupID) ?>&channelID=<?= sanitize_input($channel['channelID']) ?>" style="text-decoration: none; color: inherit;" class="channels">
                             <?= sanitize_input($channel['name']) ?>
                         </a>
                         <!-- Bouton pour supprimer le canal -->
@@ -146,8 +146,10 @@ require_once '../includes/inc-top-group.php';
         <h2>Membres du Groupe</h2>
         <ul>
             <?php foreach ($groupMembers as $member) : ?>
-                <!-- Ensure that the link points to the profile.php page with the correct userID -->
-                <li><a style="text-decoration: none; color: inherit;" href="/profile/profile.php?userID=<?= htmlspecialchars($member['userID']) ?>"><?= htmlspecialchars($member['name']) ?></a></li>
+                <li class="member-item">
+                    <img src="<?= sanitize_input($member['profile_photo']); ?>" alt="Profile Picture" class="profile_photo">
+                    <a href="/profile/profile.php?userID=<?= htmlspecialchars($member['userID']) ?>" style="text-decoration: none; color: inherit;"><?= htmlspecialchars($member['name']) ?></a>
+                </li>
             <?php endforeach; ?>
         </ul>
     </div>

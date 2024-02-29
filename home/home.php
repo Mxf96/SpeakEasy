@@ -47,7 +47,8 @@ require_once '../includes/inc-top-home.php';
     </section>
     <!-- Partie centrale  -->
     <section class="activities">
-        <h2>Activités récentes</h2>
+        <h2>Conversation récentes</h2>
+        <p>--------------------------------------------------------</p>
         <?php foreach ($lastConversations as $conversation) : ?>
             <div class="conversation">
                 <p>

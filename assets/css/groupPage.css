@@ -125,6 +125,7 @@ span {
     padding: 5px 10px;
     float: right;
     font-size: larger;
+    
 }
 
 .add-channel-btn:hover {
@@ -158,7 +159,7 @@ a {
 }
 
 .channels-list li {
-    padding: 10px;
+    padding: 15px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
     text-decoration: none;
@@ -291,18 +292,37 @@ a {
 
 /* Container pour la liste des membres du groupe */
 .group-members {
-    width: 20%; /* Prend 20% de la largeur de l'écran, à droite */
+    width: 20%;
     background: #10222D;
     color: #ECF0F1;
     padding: 20px;
     overflow-y: auto;
-    height: 100vh; /* S'étend sur toute la hauteur de la vue */
+    height: 100vh;
 }
 
-.group-members li {
-    font-weight: bold;
-    margin-bottom: 5px;
+.group-members ul {
+    padding: 0;
+}
+
+.member-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
     list-style-type: none;
+}
+
+.profile_photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.group-members li a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
 }
 
 .group-members li:hover {

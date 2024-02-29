@@ -100,7 +100,7 @@ function getGroupInfo($dbh, $groupID) {
 }
 
 function getGroupMembers($dbh, $groupID) {
-    $sql = "SELECT u.userID, u.name 
+    $sql = "SELECT u.userID, u.name,  u.profile_photo
             FROM users u
             JOIN groupmemberships gm ON u.userID = gm.userID
             WHERE gm.groupID = :groupID AND gm.status = 'accepted'";

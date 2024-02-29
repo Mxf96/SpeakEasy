@@ -12,10 +12,13 @@ function insertMessage($dbh, $fromUserID, $toUserID, $message) {
 }
 
 function getMessagesBetweenUsers($dbh, $userID1, $userID2) {
-    // Mettre à jour le statut des messages à 'read'
-    $updateSql = "UPDATE messages SET status = 'read' WHERE toUserID = :userID AND status = 'unread'";
+    // Mettre à jour le statut des messages à 'read' seulement pour les messages reçus de $userID2
+    $updateSql = "UPDATE messages SET status = 'read' WHERE toUserID = :userID1 AND fromUserID = :userID2 AND status = 'unread'";
     $updateStmt = $dbh->prepare($updateSql);
-    $updateStmt->execute([':userID' => $userID1]);
+    $updateStmt->execute([
+        ':userID1' => $userID1,
+        ':userID2' => $userID2
+    ]);
 
     // Sélectionner les messages entre les deux utilisateurs
     $selectSql = "SELECT * FROM messages WHERE (fromUserID = :userID1 AND toUserID = :userID2) OR (fromUserID = :userID2 AND toUserID = :userID1) ORDER BY dateTime ASC";
@@ -26,6 +29,7 @@ function getMessagesBetweenUsers($dbh, $userID1, $userID2) {
     ]);
     return $selectStmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 function getUnreadMessages($userID) {
     global $dbh;
