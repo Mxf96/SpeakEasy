@@ -2,7 +2,7 @@
 require_once '../includes/inc-db-connect.php';
 
 function getUserGroups($dbh, $userID) {
-    $sql = "SELECT g.groupID, g.name, g.description 
+    $sql = "SELECT g.groupID, g.name, g.description, creatorID 
             FROM `Groups` g
             JOIN GroupMemberships gm ON g.groupID = gm.groupID
             WHERE gm.userID = :userID";
@@ -13,16 +13,25 @@ function getUserGroups($dbh, $userID) {
 
 function createGroup($dbh, $groupName, $description, $userID) {
     try {
-        // Insert the new group into the `groups` table
-        $sql = "INSERT INTO `groups` (name, description) VALUES (:name, :description)";
+        // Insert the new group into the `groups` table including the creatorID
+        $sql = "INSERT INTO `groups` (name, description, creatorID) VALUES (:name, :description, :creatorID)";
         $stmt = $dbh->prepare($sql);
-        $stmt->execute([':name' => $groupName, ':description' => $description]);
+        $stmt->execute([
+            ':name' => $groupName,
+            ':description' => $description,
+            ':creatorID' => $userID  // Adding the userID as the creatorID
+        ]);
         $groupID = $dbh->lastInsertId();
 
         // Automatically add the creator as a member of the group
         $sql = "INSERT INTO `groupmemberships` (userID, groupID, status) VALUES (:userID, :groupID, 'accepted')";
         $stmt = $dbh->prepare($sql);
-        $stmt->execute([':userID' => $userID, ':groupID' => $groupID]);
+        $stmt->execute([
+            ':userID' => $userID,
+            ':groupID' => $groupID
+        ]);
+
+        return "Group created successfully. Group ID: " . $groupID; // Optionally, return a success message with the groupID
 
     } catch (PDOException $e) {
         return "Error creating group: " . $e->getMessage();
@@ -150,36 +159,22 @@ function getGroupMessagesByChannel($dbh, $groupID, $channelID) {
 
 function getChannels($dbh, $groupID) {
     try {
-        // SQL query to select channels by groupID
-        $sql = "SELECT channelID, name, description, creationDate FROM channels WHERE groupID = :groupID ORDER BY creationDate ASC";
+        // Mise à jour de la requête SQL pour inclure la colonne creatorID
+        $sql = "SELECT channelID, name, description, creationDate, creatorID FROM channels WHERE groupID = :groupID ORDER BY creationDate ASC";
         $stmt = $dbh->prepare($sql);
         
-        // Execute the query with the provided groupID
+        // Exécution de la requête avec le groupID fourni
         $stmt->execute([':groupID' => $groupID]);
         
-        // Fetch all matching records
+        // Récupération de tous les enregistrements correspondants
         $channels = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // Return the channels
+        // Retour des canaux avec creatorID
         return $channels;
     } catch (PDOException $e) {
-        // Handle any errors
+        // Gestion des erreurs
         error_log("Error fetching channels: " . $e->getMessage());
         return [];
-    }
-}
-
-
-function createChannel($dbh, $groupID, $channelName, $channelDescription) {
-    try {
-        // Ajoutez `description` dans la liste des colonnes et des valeurs de la requête SQL
-        $sql = "INSERT INTO channels (groupID, name, description) VALUES (:groupID, :name, :description)";
-        $stmt = $dbh->prepare($sql);
-        // Passez `channelDescription` comme paramètre lors de l'exécution de la requête
-        $stmt->execute([':groupID' => $groupID, ':name' => $channelName, ':description' => $channelDescription]);
-        return $dbh->lastInsertId(); // Retourne l'ID du salon créé
-    } catch (PDOException $e) {
-        return "Error creating channel: " . $e->getMessage();
     }
 }
 
@@ -191,6 +186,19 @@ function getGroupChannels($dbh, $groupID) {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         return "Error fetching channels: " . $e->getMessage();
+    }
+}
+
+function createChannel($dbh, $groupID, $channelName, $channelDescription) {
+    try {
+        // Ajoutez `description` dans la liste des colonnes et des valeurs de la requête SQL
+        $sql = "INSERT INTO channels (groupID, name, description) VALUES (:groupID, :name, :description)";
+        $stmt = $dbh->prepare($sql);
+        // Passez `channelDescription` comme paramètre lors de l'exécution de la requête
+        $stmt->execute([':groupID' => $groupID, ':name' => $channelName, ':description' => $channelDescription]);
+        return $dbh->lastInsertId(); // Retourne l'ID du salon créé
+    } catch (PDOException $e) {
+        return "Error creating channel: " . $e->getMessage();
     }
 }
 

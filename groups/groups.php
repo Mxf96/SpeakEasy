@@ -55,12 +55,13 @@ require_once '../includes/inc-top-home.php';
             <ul>
                 <?php foreach ($groupsList as $group) : ?>
                     <li class="groups-item">
-                        <!-- Utilisation d'un lien pour aller à la page du groupe -->
                         <a class="a" href="/groups/groupPage.php?groupID=<?= $group['groupID']; ?>"><?= sanitize_input($group['name']); ?></a>
-                        <form action="groups.php" method="post" style="display: inline;">
-                            <input type="hidden" name="groupID" value="<?= $group['groupID']; ?>">
-                            <button type="submit" name="deleteGroup" class="remove-group-btn" onclick="return confirm('Confirmez-vous la suppression de ce groupe ?');">Supprimer</button>
-                        </form>
+                        <?php if ($userID == $group['creatorID']) : ?> <!-- Vérifie si l'utilisateur connecté est le créateur du groupe -->
+                            <form action="groups.php" method="post" style="display: inline;">
+                                <input type="hidden" name="groupID" value="<?= $group['groupID']; ?>">
+                                <button type="submit" name="deleteGroup" class="remove-group-btn" onclick="return confirm('Confirmez-vous la suppression de ce groupe ?');">Supprimer</button>
+                            </form>
+                        <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>

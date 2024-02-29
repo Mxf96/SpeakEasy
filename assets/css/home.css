@@ -268,6 +268,16 @@ ul span {
     font-weight: bold;
 }
 
+ul span a {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+ul span a:hover {
+    color: #0070a7;
+}
+
 .friend-item {
     display: flex;
     justify-content: space-between;

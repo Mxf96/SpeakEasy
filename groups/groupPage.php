@@ -80,10 +80,10 @@ require_once '../includes/inc-top-group.php';
                         <a href="groupPage.php?groupID=<?= sanitize_input($groupID) ?>&channelID=<?= sanitize_input($channel['channelID']) ?>" style="text-decoration: none; color: inherit;" class="channels">
                             <?= sanitize_input($channel['name']) ?>
                         </a>
-                        <!-- Bouton pour supprimer le canal -->
-                        <a href="groupPage.php?groupID=<?= $groupID ?>&deleteChannelID=<?= $channel['channelID'] ?>" onclick="return confirm('Confirmez-vous la suppression de ce canal ?');" class="del-channel-btn ">X</a>
-                        <!-- Bouton pour modifier le canal -->
-                        <a href="#" onclick="showUpdateForm(<?= $channel['channelID'] ?>, '<?= addslashes(sanitize_input($channel['name'])) ?>', '<?= addslashes(sanitize_input($channel['description'])) ?>')" class="up-channel-btn">+</a>
+                        <?php if ($_SESSION['user_id'] == $channel['creatorID']) : ?> <!-- Assurez-vous que $_SESSION['user_id'] est bien défini et correspond à l'utilisateur actuel -->
+                            <a href="groupPage.php?groupID=<?= htmlspecialchars($groupID) ?>&deleteChannelID=<?= htmlspecialchars($channel['channelID']) ?>" onclick="return confirm('Confirmez-vous la suppression de ce canal ?');" class="del-channel-btn">X</a>
+                            <a href="#" onclick="showUpdateForm(<?= htmlspecialchars($channel['channelID']) ?>, '<?= addslashes(htmlspecialchars($channel['name'])) ?>', '<?= addslashes(htmlspecialchars($channel['description'])) ?>')" class="up-channel-btn">+</a>
+                        <?php endif; ?>
                         <form id="updateChannelForm" style="display: none;">
                             <input type="hidden" id="updateChannelID" name="channelIDToUpdate" class="group-input">
                             <input type="text" id="newChannelName" name="newChannelName" placeholder="Nouveau nom du salon" class="group-input">

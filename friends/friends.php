@@ -31,7 +31,7 @@ require_once '../includes/inc-top-home.php';
                 <?php foreach ($friendsList as $friend) : ?>
                     <li class="friend-item">
                         <img src="<?= sanitize_input($friend['profile_photo']); ?>" alt="Profile Picture" class="profile_photo">
-                        <span><?= sanitize_input($friend['name']); ?></span>
+                        <span><a href="/profile/profile.php?userID=<?= htmlspecialchars($friend['userID']) ?>"><?= htmlspecialchars($friend['name']) ?></a></span>
                         <a href="/messages/private-messages.php?friendID=<?= $friend['userID']; ?>" class="message-btn">Discuter</a>
                         <form action="removeFriend.php" method="post" class="remove-friend-form">
                             <input type="hidden" name="friendUserID" value="<?= $friend['userID']; ?>">
