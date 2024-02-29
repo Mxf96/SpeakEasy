@@ -11,10 +11,12 @@ if (!isset($_SESSION['user_id'])) {
 $userID = $_SESSION['user_id'];
 
 // Traitement de l'envoi d'un message
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['message'], $_POST['toUserID'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toUserID'])) {
     $toUserID = $_POST['toUserID'];
-    $message = $_POST['message'];
-    insertMessage($dbh, $userID, $toUserID, $message);
+    $message = $_POST['message'] ?? '';
+    $file = $_FILES['messageFile'] ?? null; // Adjusted to reflect the input field's name
+
+    insertMessage($dbh, $userID, $toUserID, $message, $file);
     header("Location: private-messages.php?friendID=$toUserID");
     exit;
 }
@@ -34,7 +36,23 @@ require_once '../includes/inc-top-msg.php';
             <?php if ($selectedFriendID) : ?>
                 <?php foreach ($messages as $message) : ?>
                     <div class="message <?= ($message['fromUserID'] == $userID) ? 'sent' : 'received' ?>">
-                        <?= sanitize_input($message['content']) ?>
+                        <?php if (!empty($message['filePath'])) : ?>
+                            <div class="message-file">
+                                <?php
+                                // Check if the file is an image
+                                $fileExtension = strtolower(pathinfo($message['filePath'], PATHINFO_EXTENSION));
+                                $imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                                if (in_array($fileExtension, $imageExtensions)) : ?>
+                                    <img src="<?= htmlspecialchars($message['filePath']) ?>" alt="Message image" style="max-width: 200px; display: block;">
+                                <?php else : ?>
+                                    <!-- Display a link for non-image files -->
+                                    <a href="<?= htmlspecialchars($message['filePath']) ?>" download>Download <?= htmlspecialchars(basename($message['filePath'])) ?></a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-text">
+                            <?= htmlspecialchars($message['content']) ?>
+                        </div>
                         <span class="message-date"><?= date('d/m/Y H:i', strtotime($message['dateTime'])) ?></span>
                     </div>
                 <?php endforeach; ?>
@@ -43,12 +61,16 @@ require_once '../includes/inc-top-msg.php';
     </section>
     <?php if ($selectedFriendID) : ?>
         <div class="message-input-area">
-            <form action="private-messages.php" method="post" class="message-form" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="filePreview" class="file-preview" style="display: none;"></div>
+            <form action="private-messages.php" method="post" enctype="multipart/form-data" class="message-form" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                 <input type="hidden" name="toUserID" value="<?= $selectedFriendID ?>">
+                <label for="messageFile" class="image-upload-label">+</label>
+                <input type="file" name="messageFile" accept="image/*, .txt, .html, .css, application/pdf, application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.presentation" id="messageFile" style="display: none;">
                 <input name="message" class="message-input"></input>
-                <button type="submit" class="send-button">Envoyer</button>
+                <button type="submit" class="send-button" id="sendButton">Envoyer</button>
             </form>
         </div>
     <?php endif; ?>
 </main>
+<script src="../scripts/messages.js"></script>
 <?php require_once '../includes/inc-bottom.php'; ?>

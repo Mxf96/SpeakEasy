@@ -29,14 +29,36 @@ main {
 
 /* Message Input Area Styles */
 .message-form {
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 20px;
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.image-upload-label {
+    color: #ccc;
+    cursor: pointer;
+    font-size: larger;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-left: 40px;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.image-upload-label:hover {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #cccccc8f;
+    color: #0070a7;
+    transition: all 0.3s ease-in-out;
 }
 
 .message-input {
     width: 75%;
-    margin-left: 75px;
+    margin-left: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
@@ -45,8 +67,7 @@ main {
 }
 
 button.send-button {
-    margin-right: 20px;
-    width: 15%;
+    width: 14%;
     padding: 10px;
     background-color: #10222D;
     color: white;
@@ -54,12 +75,15 @@ button.send-button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s, transform 0.2s; /* Ajout de la transition pour transform */
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+    margin-right: 40px;
+    margin-left: 20px;
 }
 
 button.send-button:hover {
     background-color: #0070a7;
-    transform: translateY(-5px); /* Animation pour monter le bouton */
+    transform: translateY(-5px);
 }
 
 /* Messages Display Styles */
@@ -70,7 +94,7 @@ button.send-button:hover {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center messages within the display */
+    align-items: center;
 }
 
 .message {
@@ -80,23 +104,38 @@ button.send-button:hover {
     border-radius: 5px;
     background-color: #3D5467;
     color: #ccc;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.message-text, .message-file {
+    width: 100%;
+}
+
+.message-file a {
+    text-decoration: none;
+    color: #FFC107;
+}
+
+.message-file a:hover {
+    color: #ccc;
 }
 
 .message.sent {
     background-color: #0070a7;
-    align-self: flex-end; /* Align sent messages to the right */
+    align-self: flex-end;
 }
 
 .message.received {
     background-color: #ccc;
     color: #333;
-    align-self: flex-start; /* Align received messages to the left */
+    align-self: flex-start;
 }
 
 .message-date {
-    display: block;
-    text-align: right;
+    align-self: flex-end; 
+    text-align: right; 
     color: #ccc;
     font-size: 0.8rem;
     margin-top: 5px;
@@ -114,4 +153,11 @@ button.send-button:hover {
     font-weight: bold;
     text-decoration: none;
     margin-left: 20px;
+}
+
+.file-preview {
+    background-color: #ccccccc2;
+    border: 2px solid #fff;
+    padding: 20px;
+    width: 10%;
 }

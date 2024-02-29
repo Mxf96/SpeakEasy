@@ -1,13 +1,32 @@
 <?php
 require_once '../includes/inc-db-connect.php'; 
 
-function insertMessage($dbh, $fromUserID, $toUserID, $message) {
-    $sql = "INSERT INTO messages (fromUserID, toUserID, content, dateTime) VALUES (:fromUserID, :toUserID, :content, NOW())";
+function insertMessage($dbh, $fromUserID, $toUserID, $message, $file) {
+    $filePath = null;
+    // Check if a file has been uploaded
+    if (!empty($file) && $file['error'] == UPLOAD_ERR_OK) {
+        $targetDirectory = $_SERVER['DOCUMENT_ROOT'] . "/assets/pictures/messageFilePath/"; // Correct path to the directory where files are stored
+        $fileName = time() . '-' . basename($file['name']);
+        $filePath = $targetDirectory . $fileName;
+
+        // Attempt to move the uploaded file to the target directory
+        if (move_uploaded_file($file['tmp_name'], $filePath)) {
+            // Store the relative path in the database
+            $filePath = "/assets/pictures/messageFilePath/" . $fileName;
+        } else {
+            // If moving the file failed, set $filePath to null
+            $filePath = null;
+        }
+    }
+
+    // Prepare and execute the SQL query to insert the message along with the file path
+    $sql = "INSERT INTO messages (fromUserID, toUserID, content, dateTime, filePath) VALUES (:fromUserID, :toUserID, :content, NOW(), :filePath)";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         ':fromUserID' => $fromUserID,
         ':toUserID' => $toUserID,
-        ':content' => $message
+        ':content' => $message,
+        ':filePath' => $filePath
     ]);
 }
 
